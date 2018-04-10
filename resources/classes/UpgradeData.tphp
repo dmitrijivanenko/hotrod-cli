@@ -1,0 +1,19 @@
+<?php
+
+namespace {{namespace}}\Setup;
+
+use Magento\Framework\Setup\UpgradeDataInterface;
+use Magento\Framework\Setup\ModuleDataSetupInterface;
+use Magento\Framework\Setup\ModuleContextInterface;
+
+
+class UpgradeData implements UpgradeDataInterface {
+
+    public function upgrade( ModuleDataSetupInterface $setup, ModuleContextInterface $context ) {
+
+        // ToDo : replace sample version
+        if ( version_compare( $context->getVersion(), '0.1.0', '<' ) ) {
+            // ToDo : implement an upgrade data script logic
+        }
+    }
+}

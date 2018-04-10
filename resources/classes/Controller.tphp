@@ -1,0 +1,46 @@
+<?php
+
+namespace {{controller_namespace}};
+
+use \Magento\Framework\App\Action\Action;
+use \Magento\Framework\App\Action\Context;
+use \Magento\Framework\View\Result\PageFactory;
+
+class {{className}} extends Action
+{
+	protected $_pageFactory;
+
+    /*
+    |--------------------------------------------------------------------------
+    | Constructor method
+    |--------------------------------------------------------------------------
+    |
+    | With a big chance yo will decide to inject some dependencies, the Context
+    | is injected already for you to match the parent's class constructor, the
+    | same as a PageFactory for page display. You can visit "{{route}}" to check
+    | this controller.
+    |
+    */
+	public function __construct(
+		Context $context,
+		PageFactory $pageFactory)
+	{
+		$this->_pageFactory = $pageFactory;
+		return parent::__construct($context);
+	}
+
+    /*
+    |--------------------------------------------------------------------------
+    | execute method
+    |--------------------------------------------------------------------------
+    |
+    | This method is for handling the controller execution logic, by default
+    | it returns the sample page
+    |
+    */
+	public function execute()
+	{
+	    // ToDo: write the controller execute logic
+		return $this->_pageFactory->create();
+	}
+}

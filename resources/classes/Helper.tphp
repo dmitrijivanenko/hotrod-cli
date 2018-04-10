@@ -1,0 +1,23 @@
+<?php
+
+namespace {{namespace}}\Helper;
+
+use Magento\Framework\App\Helper\AbstractHelper;
+use Magento\Framework\App\Helper\Context;
+
+class {{className}} extends AbstractHelper
+{
+    /*
+    |--------------------------------------------------------------------------
+    | Constructor method
+    |--------------------------------------------------------------------------
+    |
+    | With a big chance yo will decide to inject some dependencies, the Context
+    | is injected already for you to match the parent's class constructor
+    |
+    */
+    public function __construct(Context $context)
+    {
+        parent::__construct($context);
+    }
+}

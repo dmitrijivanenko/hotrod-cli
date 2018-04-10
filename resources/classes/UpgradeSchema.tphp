@@ -1,0 +1,22 @@
+<?php
+
+namespace {{namespace}}\Setup;
+
+use Magento\Framework\Setup\UpgradeSchemaInterface;
+use Magento\Framework\Setup\ModuleContextInterface;
+use Magento\Framework\Setup\SchemaSetupInterface;
+
+class UpgradeSchema implements UpgradeSchemaInterface
+{
+    public function upgrade(SchemaSetupInterface $setup, ModuleContextInterface $context)
+    {
+        $setup->startSetup();
+
+        // ToDo: replace sample version comparing
+        if (version_compare($context->getVersion(), '0.1.0', '<')) {
+            // ToDo: implement the upgrade schema logic
+        }
+
+        $setup->endSetup();
+    }
+}
