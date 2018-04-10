@@ -31,7 +31,7 @@ $app->bind(AppContainer::class, $app);
 $app->bind(Application::class, new Application('Magento Submarine', '0.01a'));
 $app->bind('app_dir', __DIR__ . $cdAppDir);
 $app->bind('submarine_dir', __DIR__);
-$app->bind('resource_dir', __DIR__ . $cdAppDir . '/resources');
+$app->bind('resource_dir', __DIR__ . '/resources');
 $app->bind(Filesystem::class, new Filesystem());
 $app->bind(Finder::class, new Finder());
 

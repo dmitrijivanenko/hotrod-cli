@@ -47,12 +47,12 @@ class CreateTemplateCommand extends BaseCommand
         $scope = $input->getOption('admin') ? 'adminhtml' : 'frontend';
 
         try {
-            $jobResult[IsModuleExists::class] = $this->jobs[IsModuleExists::class]->handle(
+            $this->jobs[IsModuleExists::class]->handle(
                 $input->getArgument('namespace'),
                 $output
             );
 
-            $jobResult[CopyFile::class] = $this->jobs[CopyFile::class]->handle(
+            $this->jobs[CopyFile::class]->handle(
                 $this->appContainer->get('resource_dir') . '/frontend/template.phtml',
                 $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] .
                     '/view/' . $scope . '/templates/' . $name . 'phtml'

@@ -42,23 +42,23 @@ class CreateHelperCommand extends BaseCommand
         $name = $input->getArgument('name');
 
         try {
-            $jobResult[IsModuleExists::class] = $this->jobs[IsModuleExists::class]->handle(
+            $this->jobs[IsModuleExists::class]->handle(
                 $input->getArgument('namespace'),
                 $output
             );
 
-            $jobResult[CopyFile::class] = $this->jobs[CopyFile::class]->handle(
+            $this->jobs[CopyFile::class]->handle(
                 $this->appContainer->get('resource_dir') . '/classes/Helper.tphp',
                 $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Helper/' . $name . '.php'
             );
 
-            $jobResult[ReplaceText::class . '_namespace'] = $this->jobs[ReplaceText::class]->handle(
+            $this->jobs[ReplaceText::class]->handle(
                 '{{namespace}}',
                 str_replace('_', '\\', $input->getArgument('namespace')),
                 $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Helper/'
             );
 
-            $jobResult[ReplaceText::class . '_name'] = $this->jobs[ReplaceText::class]->handle(
+            $this->jobs[ReplaceText::class]->handle(
                 '{{className}}',
                 $input->getArgument('name'),
                 $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Helper/'

@@ -36,7 +36,7 @@ class CreateUpgradeDataCommand extends BaseCommand
         $namespace = explode('_', $input->getArgument('namespace'));
 
         try {
-            $jobResult[IsModuleExists::class] = $this->jobs[IsModuleExists::class]->handle(
+            $this->jobs[IsModuleExists::class]->handle(
                 $input->getArgument('namespace'),
                 $output
             );
