@@ -1,4 +1,14 @@
 {
+    "name": "dmitrijivanenko/hotrod-cli",
+    "description": "Magento 2 code generation cli tool",
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dmitrij Ivanenko",
+            "email": "ivanenko.dmitrij@gmail.com"
+        }
+    ],
     "require-dev": {
         "phpunit/phpunit": "^7.0"
     },
