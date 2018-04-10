@@ -14,7 +14,7 @@
     },
     "require": {
         "symfony/console": "^4.0",
-        "symfony/finder": "^4.0",
+        "symfony/finder": "~3 || ^4.0",
         "vlucas/phpdotenv": "^2.4",
         "friendsofphp/php-cs-fixer": "^2.11",
         "symfony/filesystem": "^4.0"
