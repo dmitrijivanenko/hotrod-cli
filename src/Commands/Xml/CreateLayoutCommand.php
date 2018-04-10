@@ -83,7 +83,7 @@ class CreateLayoutCommand extends BaseCommand
 
         $jobs[ReplaceText::class]->handle(
             '{{block_template}}',
-            $namespace[0] . '_' . $namespace[1] . '::' . $input->getArgument('template') . '.phtml' ,
+            $namespace[0] . '_' . $namespace[1] . '::' . $input->getArgument('template') . '.phtml',
             $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/view/'
         );
 

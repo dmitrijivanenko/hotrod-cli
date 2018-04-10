@@ -2,7 +2,6 @@
 
 namespace HotRodCli\Processors;
 
-
 use HotRodCli\AppContainer;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -11,7 +10,6 @@ use Symfony\Component\Console\Application;
 
 class ProcessLayoutFile
 {
-
     protected $appContainer;
 
     public function __construct(AppContainer $appContainer)

@@ -78,8 +78,7 @@ class CreateBlockCommand extends BaseCommand
                 . $namespace[0] . '\\'
                 . $namespace[1] . '\\Block\\'
                 . ucwords($name) . ' was successfully created</info>');
-
-        } catch(\Throwable $e) {
+        } catch (\Throwable $e) {
             $output->writeln('<error>' . $e->getMessage() . '</error>');
         }
     }

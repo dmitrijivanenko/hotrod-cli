@@ -48,7 +48,7 @@ class CreateCommand extends BaseCommand
                 );
 
             $output->writeln('<info>Module ' . $input->getArgument('namespace') . ' was successfully created</info>');
-        } catch(\Throwable $e) {
+        } catch (\Throwable $e) {
             $output->writeln('<error>' . $e->getMessage() . '</error>');
         }
     }

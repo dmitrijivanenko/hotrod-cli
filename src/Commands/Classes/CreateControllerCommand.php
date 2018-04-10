@@ -87,8 +87,7 @@ class CreateControllerCommand extends BaseCommand
             $this->processControllerFile($input, $output);
 
             $this->runProcessors($input, $output);
-
-        } catch(\Throwable $e) {
+        } catch (\Throwable $e) {
             $output->writeln('<error>' . $e->getMessage() . '</error>');
         }
     }
@@ -129,5 +128,4 @@ class CreateControllerCommand extends BaseCommand
             . ucwords($controller[1]) . '\\'
             . ucwords($controller[2]) . ' was successfully created</info>');
     }
-
 }

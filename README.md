@@ -1,0 +1,1 @@
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dmitrijivanenko/hotrod-cli/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dmitrijivanenko/hotrod-cli/?branch=master) [![Build Status](https://travis-ci.org/dmitrijivanenko/hotrod-cli.svg?branch=master)](https://travis-ci.org/dmitrijivanenko/hotrod-cli) 

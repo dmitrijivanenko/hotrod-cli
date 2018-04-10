@@ -34,8 +34,7 @@ class AddRoute
             $routeModule->addAttribute('name', $addition['moduleName']);
 
             $xmlArray->asXML($xmlFile);
-
-        } catch(\Throwable $e) {
+        } catch (\Throwable $e) {
             throw new \Exception($e->getMessage());
         }
     }
