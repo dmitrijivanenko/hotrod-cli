@@ -11,7 +11,7 @@ This package helps you generate Magento 2 code using a clean commandline tool. A
 - Clean and fully test covered package code
 - Easy to extend for your needs
 
-##Documentation
+## Documentation
 
    You'll find full documentation [here](https://dmitrijivanenko.github.io/hotrod-cli/#/).
 
