@@ -16,7 +16,7 @@
         "symfony/console": "^3.2 || ^4.0",
         "symfony/finder": "^3.0 || ^4.0",
         "vlucas/phpdotenv": "^2.4",
-        "friendsofphp/php-cs-fixer": "^2.11",
+        "friendsofphp/php-cs-fixer": "*",
         "symfony/filesystem": "^3.0 || ^4.0"
     },
     "autoload": {
