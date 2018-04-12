@@ -14,10 +14,10 @@
     },
     "require": {
         "symfony/console": "^2.0 || ^3.2 || ^4.0",
-        "symfony/finder": "^3.0 || ^4.0",
+        "symfony/finder": "^2.0 || ^3.0 || ^4.0",
         "vlucas/phpdotenv": "^2.4",
         "friendsofphp/php-cs-fixer": "*",
-        "symfony/filesystem": "^3.0 || ^4.0"
+        "symfony/filesystem": "^2.0 || ^3.0 || ^4.0"
     },
     "autoload": {
         "psr-4": {"HotRodCli\\": "src/"}
