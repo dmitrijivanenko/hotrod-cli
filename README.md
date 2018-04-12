@@ -23,7 +23,7 @@ This package helps you generate Magento 2 code using a clean commandline tool. A
    vendor/bin/hotrod create:controller Dmiva_Test dmiva/testing/test
    ```
    
-   This line tries to create a controller for the route `dmiva/controller/test` in `Dmiva_Test` namespace. Magically it
+   This line tries to create a controller for the route `dmiva/testing/test` in `Dmiva_Test` namespace. Magically it
    creates for You a module `Dmiva_Test` if it is not exists, and generates files :
    
    - `app/code/Dmiva/Test/registration.php`   
