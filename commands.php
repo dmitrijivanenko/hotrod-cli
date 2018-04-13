@@ -10,6 +10,8 @@ use HotRodCli\Commands\Xml\CreateLayoutCommand;
 use HotRodCli\Commands\Classes\CreateInstallSchemaCommand;
 use HotRodCli\Commands\Classes\CreateUpgradeSchemaCommand;
 use HotRodCli\Commands\Classes\CreateInstallDataCommand;
+use HotRodCli\Commands\Classes\CreateUpgradeDataCommand;
+use HotRodCli\Commands\Frontend\CreateTemplateCommand;
 
 return [
     PSRFixCommand::class,
@@ -21,5 +23,7 @@ return [
     CreateLayoutCommand::class,
     CreateInstallSchemaCommand::class,
     CreateUpgradeSchemaCommand::class,
-    CreateInstallDataCommand::class
+    CreateInstallDataCommand::class,
+    CreateUpgradeDataCommand::class,
+    CreateTemplateCommand::class
 ];

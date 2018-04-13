@@ -11,6 +11,7 @@ use HotRodCli\Jobs\Xml\AddRoute;
 use HotRodCli\Processors\ProcessBlockFile;
 use HotRodCli\Processors\ProcessLayoutFile;
 use HotRodCli\Processors\ProcessRouteFile;
+use HotRodCli\Processors\ProcessTemplateFile;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -31,7 +32,8 @@ class CreateControllerCommand extends BaseCommand
     protected $processors = [
         ProcessBlockFile::class => null,
         ProcessLayoutFile::class => null,
-        ProcessRouteFile::class => null
+        ProcessRouteFile::class => null,
+        ProcessTemplateFile::class => null
     ];
 
     protected function configure()
@@ -65,6 +67,12 @@ class CreateControllerCommand extends BaseCommand
                 'nr',
                 InputArgument::OPTIONAL,
                 'Do you need a routes file'
+            )
+            ->addOption(
+                'no-template',
+                'nt',
+                InputArgument::OPTIONAL,
+                'Do you need a template file'
             )
             ->addOption(
                 'admin',

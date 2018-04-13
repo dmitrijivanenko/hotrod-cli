@@ -9,5 +9,6 @@
   * [Block](block.md)
   * [Layout](layout.md)
   * [Router](router.md)
+  * [Template](template.md)
   * [Controller](controller.md)
   * [Helper](helper.md)
