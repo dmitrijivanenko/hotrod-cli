@@ -1,0 +1,19 @@
+<?php
+namespace {{namespace}}\Model\ResourceModel;
+
+use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
+use Magento\Framework\Model\ResourceModel\Db\Context;
+
+class {{ModelName}} extends AbstractDb
+{
+
+	public function __construct(Context $context)
+	{
+		parent::__construct($context);
+	}
+
+	protected function _construct()
+	{
+		$this->_init('{{table_name}}', '{{id_name}}');
+	}
+}

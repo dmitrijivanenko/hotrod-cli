@@ -16,7 +16,7 @@ will generate a `Vendor\Module\Block\TestBlock` class in `app/code/Vendor/Module
 
 ## Options
 
-It is also possible to generate the block for the Admin part, setting the `-admin` or `--adm` option.
+It is also possible to generate the block for the Admin part, setting the `-admin` option.
 In such case the example command will be
 
    ``` bash

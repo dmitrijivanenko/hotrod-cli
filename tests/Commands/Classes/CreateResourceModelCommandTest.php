@@ -2,13 +2,13 @@
 
 namespace HotRodCli\Commands\Classes;
 
-use Symfony\Component\Console\Tester\CommandTester;
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\Filesystem\Filesystem;
 use HotRodCli\AppContainer;
 use Symfony\Component\Finder\Finder;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Tester\CommandTester;
+use Symfony\Component\Filesystem\Filesystem;
 
-class CreateUpgradeDataCommandTest extends TestCase
+class CreateResourceModelCommandTest extends TestCase
 {
     protected $command;
 
@@ -28,7 +28,7 @@ class CreateUpgradeDataCommandTest extends TestCase
 
         $this->appContainer = $appContainer;
 
-        $this->command = $appContainer->resolve(CreateUpgradeDataCommand::class);
+        $this->command = $appContainer->resolve(CreateResourceModelCommand::class);
 
         if ($filesystem->exists(__DIR__ . '/../../app/code')) {
             $filesystem->remove([__DIR__ . '/../../app']);
@@ -40,7 +40,7 @@ class CreateUpgradeDataCommandTest extends TestCase
      */
     public function it_configured_right()
     {
-        $this->assertEquals('create:upgrade-data', $this->command->getName());
+        $this->assertEquals('create:resource-model', $this->command->getName());
     }
 
     /**
@@ -57,18 +57,24 @@ class CreateUpgradeDataCommandTest extends TestCase
         $tester = new CommandTester($this->command);
 
         $tester->execute([
-            'namespace' => 'Testing_Test'
+            'namespace' => 'Testing_Test',
+            'name' => 'Test',
+            'table-name' => 'tests',
+            'id-field' => 'test_id'
         ]);
 
         $files = Finder::create()->files()->in(__DIR__ . '/../../app')
-            ->contains('UpgradeData');
+            ->contains('Test');
 
         $this->assertEquals(1, count($files));
 
         $tester->execute([
-            'namespace' => 'Testing_Tests'
+            'namespace' => 'Testing_Test',
+            'name' => 'Test',
+            'table-name' => 'tests',
+            'id-field' => 'test_id'
         ]);
 
-        $this->assertContains('no commands', $tester->getDisplay());
+        $this->assertContains('Such file already exists', $tester->getDisplay());
     }
 }

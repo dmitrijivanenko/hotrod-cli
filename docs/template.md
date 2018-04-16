@@ -12,11 +12,11 @@ Where `<namespace>` is a M2 custom module name `Vendor_Module`, `<template-name>
    hotrod create:template Testing_Test test
    ```
    
-It will generate the a `aapp/code/Testing/Test/view/frontend/templates/test.phtml` file
+It will generate the a `app/code/Testing/Test/view/frontend/templates/test.phtml` file
 
 ## Options
 
-It is also possible to generate the template for the Admin part, setting the `-admin` or `--adm` option.
+It is also possible to generate the template for the Admin part, setting the `-admin` option.
 In such case the example command will be
 
    ``` bash

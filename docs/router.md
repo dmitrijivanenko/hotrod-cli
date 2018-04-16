@@ -52,7 +52,7 @@ It will add to the existing file `app/code/Testing/Test/tec/frontend/routes.xml`
 
 ## Options
 
-It is also possible to generate the `routes.xml` file for the Admin part, setting the `-admin` or `--adm` option.
+It is also possible to generate the `routes.xml` file for the Admin part, setting the `-admin` option.
 
    ``` bash
    hotrod create:route Testings_Test route --admin=true

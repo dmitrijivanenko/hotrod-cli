@@ -15,9 +15,6 @@ use HotRodCli\Processors\ProcessTemplateFile;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Console\Application;
-use Symfony\Component\Console\Input\ArrayInput;
 
 class CreateControllerCommand extends BaseCommand
 {
@@ -52,31 +49,31 @@ class CreateControllerCommand extends BaseCommand
             )
             ->addOption(
                 'no-block',
-                'np',
+                null,
                 InputArgument::OPTIONAL,
                 'Do you need a block?'
             )
             ->addOption(
                 'no-layout',
-                'nl',
+                null,
                 InputArgument::OPTIONAL,
                 'Do you need a layout file?'
             )
             ->addOption(
                 'no-routes',
-                'nr',
+                null,
                 InputArgument::OPTIONAL,
                 'Do you need a routes file'
             )
             ->addOption(
                 'no-template',
-                'nt',
+                null,
                 InputArgument::OPTIONAL,
                 'Do you need a template file'
             )
             ->addOption(
                 'admin',
-                'adm',
+                null,
                 InputArgument::OPTIONAL,
                 'Is this template for admin part?'
             )

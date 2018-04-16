@@ -35,7 +35,7 @@ class CreateRouteCommand extends BaseCommand
             )
             ->addOption(
                 'admin',
-                'adm',
+                null,
                 InputArgument::OPTIONAL,
                 'Is this route for admin part?'
             )
@@ -53,7 +53,7 @@ class CreateRouteCommand extends BaseCommand
         /** @var Filesystem $filesystem */
         $filesystem = $app->resolve(Filesystem::class);
 
-        if ($filesystem->exists($app->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/etc/frontend/routes.xml')) {
+        if ($filesystem->exists($app->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/etc/' . $scope . '/routes.xml')) {
             $jobs[AddRoute::class]->handle(
                 $this->appContainer->get('app_dir')
                 . '/app/code/' . $namespace[0] . '/' . $namespace[1]

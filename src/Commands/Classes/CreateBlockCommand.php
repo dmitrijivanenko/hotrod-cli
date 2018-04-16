@@ -34,7 +34,7 @@ class CreateBlockCommand extends BaseCommand
             )
             ->addOption(
                 'admin',
-                'adm',
+                null,
                 InputArgument::OPTIONAL,
                 'Is this block for admin part?'
             )

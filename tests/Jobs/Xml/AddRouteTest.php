@@ -6,7 +6,8 @@ use HotRodCli\Jobs\Xml\AddRoute;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
 
-function file_get_contents($test) {
+function file_get_contents($test)
+{
     if ($test == 'test') {
         return 'test-issue';
     } else {

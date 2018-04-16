@@ -23,7 +23,7 @@ all You need to set up that controller
 
 ### Admin
 
-It is also possible to generate Controller with all needed files in admin scope, by setting the `--admin` or `--adm` option.
+It is also possible to generate Controller with all needed files in admin scope, by setting the `--admin` option.
 
    ``` bash
    hotrod create:controller Testings_Test testings/testing/test --admin=true
@@ -41,23 +41,23 @@ In such case generated files will be
 If for some reason you don't need some of those files to be generated you can use restrictions options
 
 #### No Block
- `--no-block` or `-nb`
+ `--no-block`
    ``` bash
    hotrod create:controller Testings_Test testings/testing/test --no-block=true
    ```
    
 #### No Route
- `--no-route` or `-nr`
+ `--no-route`
    ``` bash
    hotrod create:controller Testings_Test testings/testing/test --no-route=true
    ```   
 #### No Layout
- `--no-layout` or `-nl`
+ `--no-layout`
    ``` bash
    hotrod create:controller Testings_Test testings/testing/test --no-layout=true
    ```
 #### No Template
- `--no-template` or `-nb`
+ `--no-template` 
    ``` bash
    hotrod create:controller Testings_Test testings/testing/test --no-template=true
    ``

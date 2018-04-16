@@ -8,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Filesystem\Filesystem;
 
-
 class CreateHelperCommandTest extends TestCase
 {
     protected $command;

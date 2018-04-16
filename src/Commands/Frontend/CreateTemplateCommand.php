@@ -32,7 +32,7 @@ class CreateTemplateCommand extends BaseCommand
             )
             ->addOption(
                 'admin',
-                'adm',
+                null,
                 InputArgument::OPTIONAL,
                 'is this template for admin'
             )

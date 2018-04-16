@@ -32,6 +32,7 @@ This package helps you generate Magento 2 code using a clean commandline tool. A
    - `app/code/Dmiva/Test/view/frontend/layout/dmiva_testing_test.xml`   
    - `app/code/Dmiva/Test/Controller/Testing/Test.php`   
    - `app/code/Dmiva/Test/Block/Testing.php`
+   - `app/code/Dmiva/Test/view/frontend/templates/test.phtml`
 
 ## Installation
    

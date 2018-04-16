@@ -6,9 +6,15 @@
   
   * [Module](module_generation.md)
   * [Install Scripts](install_scripts.md)
+  * [Helper](helper.md)
   * [Block](block.md)
   * [Layout](layout.md)
   * [Router](router.md)
   * [Template](template.md)
   * [Controller](controller.md)
-  * [Helper](helper.md)
+  * [Resource Model](resource-model.md)
+
+* Common Commands
+
+  * [Code Style Fix](code-style.md)
+  

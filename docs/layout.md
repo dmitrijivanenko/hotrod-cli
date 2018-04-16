@@ -27,7 +27,7 @@ It will generate the file a `app/code/Testings/Test/view/frontend/layout/test-la
 
 ## Options
 
-It is also possible to generate the layout for the Admin part, setting the `-admin` or `--adm` option.
+It is also possible to generate the layout for the Admin part, setting the `-admin` option.
 In such case the example command will be
 
    ``` bash

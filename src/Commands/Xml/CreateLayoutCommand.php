@@ -47,7 +47,7 @@ class CreateLayoutCommand extends BaseCommand
             )
             ->addOption(
                 'admin',
-                'adm',
+                null,
                 InputArgument::OPTIONAL,
                 'Is this layout for admin part?'
             )
