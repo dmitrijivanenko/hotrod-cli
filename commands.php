@@ -13,6 +13,8 @@ use HotRodCli\Commands\Classes\CreateInstallDataCommand;
 use HotRodCli\Commands\Classes\CreateUpgradeDataCommand;
 use HotRodCli\Commands\Frontend\CreateTemplateCommand;
 use HotRodCli\Commands\Classes\CreateResourceModelCommand;
+use HotRodCli\Commands\Classes\CreateModelCommand;
+use HotRodCli\Commands\Classes\CreateCollectionCommand;
 
 return [
     PSRFixCommand::class,
@@ -27,5 +29,7 @@ return [
     CreateInstallDataCommand::class,
     CreateUpgradeDataCommand::class,
     CreateTemplateCommand::class,
-    CreateResourceModelCommand::class
+    CreateResourceModelCommand::class,
+    CreateModelCommand::class,
+    CreateCollectionCommand::class
 ];

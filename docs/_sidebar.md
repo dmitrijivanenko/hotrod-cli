@@ -13,6 +13,8 @@
   * [Template](template.md)
   * [Controller](controller.md)
   * [Resource Model](resource-model.md)
+  * [Collection](collection.md)
+  * [Model](model.md)
 
 * Common Commands
 

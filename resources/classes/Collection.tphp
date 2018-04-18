@@ -1,0 +1,22 @@
+<?php
+namespace {{namespace}}\Model\ResourceModel\{{name}};
+
+use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
+
+class Collection extends AbstractCollection
+{
+	protected $_idFieldName = '{{id_name}}';
+	protected $_eventPrefix = '{{table_name}}_collection';
+	protected $_eventObject = '{{name}}_collection';
+
+	/**
+	 * Define resource model
+	 *
+	 * @return void
+	 */
+	protected function _construct()
+	{
+		$this->_init('{{Model}}', '{{ResourceModel}}');
+	}
+
+}

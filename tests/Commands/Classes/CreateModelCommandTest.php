@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Filesystem\Filesystem;
 
-class CreateResourceModelCommandTest extends TestCase
+class CreateModelCommandTest extends TestCase
 {
     protected $command;
 
@@ -28,7 +28,7 @@ class CreateResourceModelCommandTest extends TestCase
 
         $this->appContainer = $appContainer;
 
-        $this->command = $appContainer->resolve(CreateResourceModelCommand::class);
+        $this->command = $appContainer->resolve(CreateModelCommand::class);
 
         if ($filesystem->exists(__DIR__ . '/../../app/code')) {
             $filesystem->remove([__DIR__ . '/../../app']);
@@ -40,13 +40,13 @@ class CreateResourceModelCommandTest extends TestCase
      */
     public function it_configured_right()
     {
-        $this->assertEquals('create:resource-model', $this->command->getName());
+        $this->assertEquals('create:model', $this->command->getName());
     }
 
     /**
      * @test
      */
-    public function it_creates_a_new_resource_model_class()
+    public function it_creates_a_new_model_class()
     {
         $filesystem = $this->appContainer->resolve(Filesystem::class);
 
@@ -59,7 +59,7 @@ class CreateResourceModelCommandTest extends TestCase
         $tester->execute([
             'namespace' => 'Testing_Test',
             'name' => 'Test',
-            'table-name' => 'tests',
+            'table-name' => 'tests_table',
             'id-field' => 'test_id'
         ]);
 
@@ -71,10 +71,11 @@ class CreateResourceModelCommandTest extends TestCase
         $tester->execute([
             'namespace' => 'Testing_Test',
             'name' => 'Test',
-            'table-name' => 'tests',
+            'table-name' => 'tests_table',
             'id-field' => 'test_id'
         ]);
 
         $this->assertContains('Such file already exists', $tester->getDisplay());
     }
+
 }

@@ -2,13 +2,13 @@
 
 namespace HotRodCli\Commands\Classes;
 
-use HotRodCli\AppContainer;
-use Symfony\Component\Finder\Finder;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Console\Tester\CommandTester;
+use HotRodCli\AppContainer;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Console\Tester\CommandTester;
 
-class CreateResourceModelCommandTest extends TestCase
+class CreateCollectionCommandTest extends TestCase
 {
     protected $command;
 
@@ -28,7 +28,7 @@ class CreateResourceModelCommandTest extends TestCase
 
         $this->appContainer = $appContainer;
 
-        $this->command = $appContainer->resolve(CreateResourceModelCommand::class);
+        $this->command = $appContainer->resolve(CreateCollectionCommand::class);
 
         if ($filesystem->exists(__DIR__ . '/../../app/code')) {
             $filesystem->remove([__DIR__ . '/../../app']);
@@ -40,13 +40,13 @@ class CreateResourceModelCommandTest extends TestCase
      */
     public function it_configured_right()
     {
-        $this->assertEquals('create:resource-model', $this->command->getName());
+        $this->assertEquals('create:collection', $this->command->getName());
     }
 
     /**
      * @test
      */
-    public function it_creates_a_new_resource_model_class()
+    public function it_should_create_a_collection()
     {
         $filesystem = $this->appContainer->resolve(Filesystem::class);
 
@@ -64,7 +64,7 @@ class CreateResourceModelCommandTest extends TestCase
         ]);
 
         $files = Finder::create()->files()->in(__DIR__ . '/../../app')
-            ->contains('Test');
+            ->contains('test_id');
 
         $this->assertEquals(1, count($files));
 
