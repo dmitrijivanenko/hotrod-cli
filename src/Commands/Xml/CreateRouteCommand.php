@@ -64,6 +64,9 @@ class CreateRouteCommand extends BaseCommand
                     'moduleName' => ucwords($namespace[0]) . '_' . ucwords($namespace[1]),
                 ]
             );
+
+            $output->writeln('<info>'
+                . strtolower($routeName) . ' route was successfully added</info>');
         } else {
             $jobs[CopyFile::class]->handle(
                 $app->get('resource_dir') . '/xml/routes.xml',
@@ -83,6 +86,10 @@ class CreateRouteCommand extends BaseCommand
                 ucwords($namespace[0]) . '_' . ucwords($namespace[1]),
                 $app->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/etc/' . $scope . ''
             );
+
+            $output->writeln('<info>'
+                . $namespace[0] . '/'
+                . $namespace[1] . '/etc/' . $scope . '/routes.xml was successfully created</info>');
         }
     }
 }

@@ -33,6 +33,11 @@ class AddRoute
             $routeModule = $newRoute->addChild('module');
             $routeModule->addAttribute('name', $addition['moduleName']);
 
+            $dom = new \DOMDocument("1.0");
+            $dom->preserveWhiteSpace = false;
+            $dom->formatOutput = true;
+            $dom->loadXML($xmlArray->asXML());
+            $xmlArray = new \SimpleXMLElement($dom->saveXML());
             $xmlArray->asXML($xmlFile);
         } catch (\Throwable $e) {
             throw new \Exception($e->getMessage());
