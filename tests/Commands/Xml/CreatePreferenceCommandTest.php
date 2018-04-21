@@ -2,13 +2,14 @@
 
 namespace HotRodCli\Commands\Xml;
 
+use HotRodCli\Jobs\Xml\AddPreference;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use HotRodCli\AppContainer;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class CreateRouteCommandTest extends TestCase
+class CreatePreferenceCommandTest extends TestCase
 {
     protected $command;
 
@@ -28,7 +29,7 @@ class CreateRouteCommandTest extends TestCase
 
         $this->appContainer = $appContainer;
 
-        $this->command = $appContainer->resolve(CreateRouteCommand::class);
+        $this->command = $appContainer->resolve(CreatePreferenceCommand::class);
 
         if ($filesystem->exists(__DIR__ . '/../../app/code')) {
             $filesystem->remove([__DIR__ . '/../../app']);
@@ -40,13 +41,13 @@ class CreateRouteCommandTest extends TestCase
      */
     public function it_configured_right()
     {
-        $this->assertEquals('create:route', $this->command->getName());
+        $this->assertEquals('create:preference', $this->command->getName());
     }
 
     /**
      * @test
      */
-    public function it_creates_or_adds_a_route()
+    public function it_creates_a_preference()
     {
         $filesystem = $this->appContainer->resolve(Filesystem::class);
 
@@ -58,24 +59,24 @@ class CreateRouteCommandTest extends TestCase
 
         $tester->execute([
             'namespace' => 'Testing_Test',
-            'route-name' => 'route'
+            'for' => 'Some\\Magento\\Class',
+            'type' => 'Some\\New\\Class'
         ]);
 
         $files = Finder::create()->files()->in(__DIR__ . '/../../app')
-            ->contains('Testing_Test');
+            ->contains('preference');
 
         $this->assertEquals(1, count($files));
 
         $tester->execute([
             'namespace' => 'Testing_Test',
-            'route-name' => 'route2'
+            'for' => 'Some\\Another\\Magento\\Class',
+            'type' => 'Some\\Another\\New\\Class'
         ]);
 
         $files = Finder::create()->files()->in(__DIR__ . '/../../app')
-            ->contains('Testing_Test');
+            ->contains('preference');
 
         $this->assertEquals(1, count($files));
-
-        $filesystem->remove([__DIR__ . '/../../app']);
     }
 }

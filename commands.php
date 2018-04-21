@@ -15,6 +15,7 @@ use HotRodCli\Commands\Frontend\CreateTemplateCommand;
 use HotRodCli\Commands\Classes\CreateResourceModelCommand;
 use HotRodCli\Commands\Classes\CreateModelCommand;
 use HotRodCli\Commands\Classes\CreateCollectionCommand;
+use HotRodCli\Commands\Xml\CreatePreferenceCommand;
 
 return [
     PSRFixCommand::class,
@@ -31,5 +32,6 @@ return [
     CreateTemplateCommand::class,
     CreateResourceModelCommand::class,
     CreateModelCommand::class,
-    CreateCollectionCommand::class
+    CreateCollectionCommand::class,
+    CreatePreferenceCommand::class
 ];

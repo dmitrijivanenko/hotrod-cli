@@ -2,7 +2,6 @@
 
 namespace HotRodCli\Jobs\Xml;
 
-use HotRodCli\Jobs\Xml\AddRoute;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -10,7 +9,9 @@ function file_get_contents($test)
 {
     if ($test == 'test') {
         return 'test-issue';
-    } else {
+    }
+
+    if ($test == 'route' || $test == 'route2' || strpos($test, 'route')){
         return '<?xml version="1.0" ?>
                     <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
                         <router id="standard">
@@ -20,6 +21,14 @@ function file_get_contents($test)
                         </router>
                     </config>';
     }
+
+    if ($test == 'preference'){
+        return '<?xml version="1.0" ?>
+                    <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+                    </config>';
+    }
+
+    return \file_get_contents($test);
 }
 
 class AddRouteTest extends TestCase
@@ -62,10 +71,10 @@ class AddRouteTest extends TestCase
         $fileSystem = $this->prophesize(Filesystem::class);
         $job = new AddRoute($fileSystem->reveal());
 
-        $fileSystem->exists()->shouldBeCalled()->withArguments(['test2'])->willReturn(true);
+        $fileSystem->exists()->shouldBeCalled()->withArguments(['route'])->willReturn(true);
 
         $this->expectExceptionMessage('route already exists');
 
-        $job->handle('test2', ['frontName' => 'test2']);
+        $job->handle('route', ['frontName' => 'test2']);
     }
 }
