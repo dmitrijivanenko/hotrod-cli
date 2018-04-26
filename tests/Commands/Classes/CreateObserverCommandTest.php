@@ -1,15 +1,14 @@
 <?php
 
-namespace HotRodCli\Commands\Xml;
+namespace HotRodCli\Commands\Classes;
 
-use HotRodCli\Jobs\Xml\AddPreference;
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Finder\Finder;
 use HotRodCli\AppContainer;
+use Symfony\Component\Finder\Finder;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
+use Symfony\Component\Filesystem\Filesystem;
 
-class CreatePreferenceCommandTest extends TestCase
+class CreateObserverCommandTest extends TestCase
 {
     protected $command;
 
@@ -29,7 +28,7 @@ class CreatePreferenceCommandTest extends TestCase
 
         $this->appContainer = $appContainer;
 
-        $this->command = $appContainer->resolve(CreatePreferenceCommand::class);
+        $this->command = $appContainer->resolve(CreateObserverCommand::class);
 
         if ($filesystem->exists(__DIR__ . '/../../app/code')) {
             $filesystem->remove([__DIR__ . '/../../app']);
@@ -41,13 +40,13 @@ class CreatePreferenceCommandTest extends TestCase
      */
     public function it_configured_right()
     {
-        $this->assertEquals('create:preference', $this->command->getName());
+        $this->assertEquals('create:observer', $this->command->getName());
     }
 
     /**
      * @test
      */
-    public function it_creates_a_preference()
+    public function it_creates_a_new_resource_model_class()
     {
         $filesystem = $this->appContainer->resolve(Filesystem::class);
 
@@ -59,24 +58,21 @@ class CreatePreferenceCommandTest extends TestCase
 
         $tester->execute([
             'namespace' => 'Testing_Test',
-            'for' => 'Some\\Magento\\Class',
-            'type' => 'Some\\New\\Class'
+            'event' => 'test_event',
+            'observer' => 'TestObserver'
         ]);
 
         $files = Finder::create()->files()->in(__DIR__ . '/../../app')
-            ->contains('preference');
+            ->contains('TestObserver');
 
         $this->assertEquals(1, count($files));
 
         $tester->execute([
             'namespace' => 'Testing_Test',
-            'for' => 'Some\\Another\\Magento\\Class',
-            'type' => 'Some\\Another\\New\\Class'
+            'event' => 'test_event',
+            'observer' => 'TestObserver'
         ]);
 
-        $files = Finder::create()->files()->in(__DIR__ . '/../../app')
-            ->contains('preference');
-
-        $this->assertEquals(1, count($files));
+        $this->assertContains('Such file already exists', $tester->getDisplay());
     }
 }
