@@ -65,7 +65,7 @@ class CreateObserverCommandTest extends TestCase
         $files = Finder::create()->files()->in(__DIR__ . '/../../app')
             ->contains('TestObserver');
 
-        $this->assertEquals(1, count($files));
+        $this->assertEquals(2, count($files));
 
         $tester->execute([
             'namespace' => 'Testing_Test',
