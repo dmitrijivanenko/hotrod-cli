@@ -7,6 +7,7 @@ use HotRodCli\Jobs\Filesystem\CopyFile;
 use HotRodCli\Jobs\Module\IsModuleExists;
 use HotRodCli\Jobs\Module\ReplaceText;
 use HotRodCli\Processors\ProcessCollectionFile;
+use HotRodCli\Processors\ProcessRepository;
 use HotRodCli\Processors\ProcessResourceModelFile;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -22,7 +23,8 @@ class CreateModelCommand extends BaseCommand
 
     protected $processors = [
         ProcessResourceModelFile::class => null,
-        ProcessCollectionFile::class => null
+        ProcessCollectionFile::class => null,
+        ProcessRepository::class => null
     ];
 
     protected function configure()
