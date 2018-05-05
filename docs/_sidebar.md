@@ -14,7 +14,9 @@
   * [Controller](controller.md)
   * [Resource Model](resource-model.md)
   * [Collection](collection.md)
+  * [Repository](repository.md)
   * [Model](model.md)
+  * [Observer](observer.md)
 
 * Common Commands
 

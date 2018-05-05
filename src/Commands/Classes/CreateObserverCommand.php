@@ -10,6 +10,7 @@ use HotRodCli\Jobs\Xml\AddEvent;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 class CreateObserverCommand extends BaseCommand
 {
@@ -76,10 +77,14 @@ class CreateObserverCommand extends BaseCommand
         $jobs = $this->jobs;
         $namespace = explode('_', $input->getArgument('namespace'));
         $app = $this->appContainer;
-        $jobs[CopyFile::class]->handle(
-            $app->get('resource_dir') . '/xml/events.xml',
-            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/etc/events.xml'
-        );
+        $filesystem = $this->appContainer->resolve(Filesystem::class);
+
+        if (!$filesystem->exists($app->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/etc/events.xml')) {
+            $jobs[CopyFile::class]->handle(
+                $app->get('resource_dir') . '/xml/events.xml',
+                $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/etc/events.xml'
+            );
+        }
 
         $jobs[AddEvent::class]->handle($this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/etc/events.xml', [
             'event-name' => $input->getArgument('event'),

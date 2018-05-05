@@ -17,3 +17,8 @@ It will not only generate the `Testing\Test\Model\Test` Class in `app/code/Testi
 all You need to use it
 * `app/code/Testing/Test/Model/ResourceModel/Test.php` Resource Model file
 * `app/code/Testing/Test/Model/ResourceModel/Test/Collection.php` Collection file
+* `app/code/Testing/Test/Api/TestRepositoryInterface.php` Repository Interface file
+* `app/code/Testing/Test/Model/TestRepository.php` Repository file
+* `app/code/Testing/Test/etc/di.xml` DI file with a preference for repository file
+
+> Before generating the Model, HotRod Cli checks if the module exists, if not, it creates one for You.
