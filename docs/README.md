@@ -29,4 +29,15 @@
    - `app/code/Dmiva/Test/view/frontend/layout/dmiva_testing_test.xml`   
    - `app/code/Dmiva/Test/Controller/Testing/Test.php`   
    - `app/code/Dmiva/Test/Block/Testing.php`
+   - `app/code/Dmiva/Test/view/frontend/templates/test.phtml`
+   
+   
+## Contributing
+
+Contributions are welcome. We accept contributions via Pull Requests on [Github](https://github.com/dmitrijivanenko/hotrod-cli).
+Please read and understand the contribution [guide](contribution.md) before creating an issue or pull request.
+
+## Licence
+
+This project is open-sourced software licensed under the MIT license.
    

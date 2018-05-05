@@ -26,7 +26,7 @@ This package helps you generate Magento 2 code using a clean commandline tool. A
    ```
    
    This line tries to create a controller for the route `dmiva/testing/test` in `Dmiva_Test` namespace. Magically it
-   creates for You a module `Dmiva_Test` if it is not exists, and generates files :
+   creates for You a module `Dmiva_Test` if it is not exists and generates files :
    
    - `app/code/Dmiva/Test/registration.php`   
    - `app/code/Dmiva/Test/etc/module.xml`   
@@ -43,3 +43,12 @@ This package helps you generate Magento 2 code using a clean commandline tool. A
    ``` bash
    composer require --dev dmitrijivanenko/hotrod-cli
    ```   
+   
+## Contributing
+
+Help is very welcomed. We accept contributions via Pull Requests on [Github](https://github.com/dmitrijivanenko/hotrod-cli).
+Please read and understand the contribution [guide](https://dmitrijivanenko.github.io/hotrod-cli/#/contribution) before creating an issue or pull request.
+
+## Licence
+
+This project is open-sourced software licensed under the MIT license.
