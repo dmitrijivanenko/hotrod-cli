@@ -111,19 +111,13 @@ class CreateControllerCommand extends BaseCommand
             $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] .
             '/Controller/' . $scopeDir . ucwords($controller[1]) . '/' . ucwords($controller[2]) . '.php'
         );
-        $jobs[ReplaceText::class]->handle(
-            '{{controller_namespace}}',
-            $namespace[0] . '\\' . $namespace[1] . '\\Controller\\' . $scopeNamespace . ucwords($controller[1]),
-            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Controller/'
-        );
-        $jobs[ReplaceText::class]->handle(
-            '{{className}}',
-            ucwords($controller[2]),
-            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Controller/'
-        );
-        $jobs[ReplaceText::class]->handle(
-            '{{route}}',
-            $input->getArgument('route'),
+
+        $this->replaceTextsSequence(
+            [
+                '{{controller_namespace}}' => $namespace[0] . '\\' . $namespace[1] . '\\Controller\\' . $scopeNamespace . ucwords($controller[1]),
+                '{{className}}' => ucwords($controller[2]),
+                '{{route}}' => $input->getArgument('route')
+            ],
             $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Controller/'
         );
 

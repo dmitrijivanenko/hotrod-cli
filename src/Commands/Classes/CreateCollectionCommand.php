@@ -67,41 +67,14 @@ class CreateCollectionCommand extends BaseCommand
             $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Model/ResourceModel/' . $input->getArgument('name') . '/Collection.php'
         );
 
-        $this->jobs[ReplaceText::class]->handle(
-            '{{namespace}}',
-            str_replace('_', '\\', $input->getArgument('namespace')),
-            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Model/'
-        );
-
-        $this->jobs[ReplaceText::class]->handle(
-            '{{name}}',
-            $input->getArgument('name'),
-            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Model/'
-        );
-
-        $this->jobs[ReplaceText::class]->handle(
-            '{{table_name}}',
-            $input->getArgument('table-name'),
-            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Model/'
-        );
-
-        $this->jobs[ReplaceText::class]->handle(
-            '{{id_name}}',
-            $input->getArgument('id-field'),
-            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Model/'
-        );
-
-        $this->jobs[ReplaceText::class]->handle(
-            '{{ResourceModel}}',
-            str_replace('_', '\\', $input->getArgument('namespace')) . '\\Model\\ResourceModel\\' . $input->getArgument('name'),
-            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Model/'
-        );
-
-        $this->jobs[ReplaceText::class]->handle(
-            '{{Model}}',
-            str_replace('_', '\\', $input->getArgument('namespace')) . '\\Model\\' . $input->getArgument('name'),
-            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Model/'
-        );
+        $this->replaceTextsSequence([
+            '{{namespace}}' => str_replace('_', '\\', $input->getArgument('namespace')),
+            '{{name}}' => $input->getArgument('name'),
+            '{{table_name}}' => $input->getArgument('table-name'),
+            '{{id_name}}' => $input->getArgument('id-field'),
+            '{{ResourceModel}}' => str_replace('_', '\\', $input->getArgument('namespace')) . '\\Model\\ResourceModel\\' . $input->getArgument('name'),
+            '{{Model}}' => str_replace('_', '\\', $input->getArgument('namespace')) . '\\Model\\' . $input->getArgument('name')
+        ], $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Model/');
 
         $output->writeln('<info>Collection ' . $input->getArgument('name') . ' was successfully created</info>');
     }

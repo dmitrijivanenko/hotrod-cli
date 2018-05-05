@@ -2,6 +2,7 @@
 
 namespace HotRodCli\Commands;
 
+use HotRodCli\Jobs\Module\ReplaceText;
 use Symfony\Component\Console\Command\Command;
 use HotRodCli\AppContainer;
 use Symfony\Component\Console\Input\InputInterface;
@@ -15,9 +16,13 @@ class BaseCommand extends Command
 
     protected $processors = [];
 
+    /** @var  ReplaceText */
+    protected $replaceTextJob;
+
     public function __construct(AppContainer $appContainer)
     {
         $this->appContainer = $appContainer;
+        $this->replaceTextJob = $this->appContainer->resolve(ReplaceText::class);
 
         parent::__construct();
     }
@@ -40,6 +45,15 @@ class BaseCommand extends Command
     {
         foreach ($this->processors as $processor) {
             $processor($input, $output);
+        }
+
+        return $this;
+    }
+
+    public function replaceTextsSequence(array $sequence, string $destination)
+    {
+        foreach ($sequence as $needle => $value) {
+            $this->replaceTextJob->handle($needle, $value, $destination);
         }
 
         return $this;

@@ -67,29 +67,12 @@ class CreateResourceModelCommand extends BaseCommand
             $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Model/ResourceModel/' . $input->getArgument('name') . '.php'
         );
 
-        $this->jobs[ReplaceText::class]->handle(
-            '{{namespace}}',
-            str_replace('_', '\\', $input->getArgument('namespace')),
-            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Model/'
-        );
-
-        $this->jobs[ReplaceText::class]->handle(
-            '{{ModelName}}',
-            $input->getArgument('name'),
-            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Model/'
-        );
-
-        $this->jobs[ReplaceText::class]->handle(
-            '{{table_name}}',
-            $input->getArgument('table-name'),
-            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Model/'
-        );
-
-        $this->jobs[ReplaceText::class]->handle(
-            '{{id_name}}',
-            $input->getArgument('id-field'),
-            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Model/'
-        );
+        $this->replaceTextsSequence([
+            '{{namespace}}' => str_replace('_', '\\', $input->getArgument('namespace')),
+            '{{ModelName}}' => $input->getArgument('name'),
+            '{{table_name}}' => $input->getArgument('table-name'),
+            '{{id_name}}' => $input->getArgument('id-field')
+        ], $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Model/');
 
         $output->writeln('<info>Model Resource ' . $input->getArgument('name') . ' was successfully created</info>');
     }

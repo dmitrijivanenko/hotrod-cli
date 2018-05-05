@@ -80,29 +80,12 @@ class CreateModelCommand extends BaseCommand
             $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Model/' . $input->getArgument('name') . '.php'
         );
 
-        $this->jobs[ReplaceText::class]->handle(
-            '{{namespace}}',
-            str_replace('_', '\\', $input->getArgument('namespace')),
-            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Model/'
-        );
-
-        $this->jobs[ReplaceText::class]->handle(
-            '{{ModelName}}',
-            $input->getArgument('name'),
-            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Model/'
-        );
-
-        $this->jobs[ReplaceText::class]->handle(
-            '{{tag}}',
-            $input->getArgument('table-name'),
-            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Model/'
-        );
-
-        $this->jobs[ReplaceText::class]->handle(
-            '{{ResourceModel}}',
-            str_replace('_', '\\', $input->getArgument('namespace')) . '\\Model\\ResourceModel\\' . $input->getArgument('name'),
-            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Model/'
-        );
+        $this->replaceTextsSequence([
+            '{{namespace}}' => str_replace('_', '\\', $input->getArgument('namespace')),
+            '{{ModelName}}' => $input->getArgument('name'),
+            '{{tag}}' => $input->getArgument('table-name'),
+            '{{ResourceModel}}' => str_replace('_', '\\', $input->getArgument('namespace')) . '\\Model\\ResourceModel\\' . $input->getArgument('name')
+        ], $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Model/');
 
         $output->writeln('<info>Model ' . $input->getArgument('name') . ' was successfully created</info>');
     }

@@ -85,13 +85,12 @@ class CreateRepositoryCommand extends BaseCommand
             $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Model/' . $modelName . 'Repository.php'
         );
 
-        $this->jobs[ReplaceText::class]->handle('{{namespace}}', $namespace[0] . '\\' . $namespace[1], $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Model/');
-
-        $this->jobs[ReplaceText::class]->handle('{{interface}}', $input->getArgument('interface-name'), $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Model/');
-
-        $this->jobs[ReplaceText::class]->handle('{{Model}}', $input->getArgument('model-class'), $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Model/');
-
-        $this->jobs[ReplaceText::class]->handle('{{modelName}}', $modelName, $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Model/');
+        $this->replaceTextsSequence([
+            '{{namespace}}' => $namespace[0] . '\\' . $namespace[1],
+            '{{interface}}' => $input->getArgument('interface-name'),
+            '{{Model}}' => $input->getArgument('model-class'),
+            '{{modelName}}' => $modelName
+        ], $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Model/');
 
         $output->writeln('<info>Repository ' . $modelName . 'Repository was successfully created</info>');
     }
