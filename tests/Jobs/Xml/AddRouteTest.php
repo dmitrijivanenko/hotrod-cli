@@ -11,7 +11,7 @@ function file_get_contents($test)
         return 'test-issue';
     }
 
-    if ($test == 'route' || $test == 'route2' || strpos($test, 'route')){
+    if ($test == 'route' || $test == 'route2' || strpos($test, 'route')) {
         return '<?xml version="1.0" ?>
                     <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
                         <router id="standard">
@@ -22,7 +22,7 @@ function file_get_contents($test)
                     </config>';
     }
 
-    if ($test == 'preference'){
+    if ($test == 'preference') {
         return '<?xml version="1.0" ?>
                     <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
                     </config>';

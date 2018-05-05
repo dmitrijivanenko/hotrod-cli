@@ -2,13 +2,13 @@
 
 namespace HotRodCli\Commands\Classes;
 
+use PHPUnit\Framework\TestCase;
 use HotRodCli\AppContainer;
 use Symfony\Component\Finder\Finder;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Filesystem\Filesystem;
 
-class CreateModelCommandTest extends TestCase
+class CreateRepositoryCommandTest extends TestCase
 {
     protected $command;
 
@@ -28,7 +28,7 @@ class CreateModelCommandTest extends TestCase
 
         $this->appContainer = $appContainer;
 
-        $this->command = $appContainer->resolve(CreateModelCommand::class);
+        $this->command = $appContainer->resolve(CreateRepositoryCommand::class);
 
         if ($filesystem->exists(__DIR__ . '/../../app/code')) {
             $filesystem->remove([__DIR__ . '/../../app']);
@@ -40,13 +40,13 @@ class CreateModelCommandTest extends TestCase
      */
     public function it_configured_right()
     {
-        $this->assertEquals('create:model', $this->command->getName());
+        $this->assertEquals('create:repository', $this->command->getName());
     }
 
     /**
      * @test
      */
-    public function it_creates_a_new_model_class()
+    public function it_creates_a_repository_class()
     {
         $filesystem = $this->appContainer->resolve(Filesystem::class);
 
@@ -58,21 +58,24 @@ class CreateModelCommandTest extends TestCase
 
         $tester->execute([
             'namespace' => 'Testing_Test',
-            'name' => 'Test',
-            'table-name' => 'tests_table',
-            'id-field' => 'test_id'
+            'interface-name' => 'TestInterface',
+            'model-class' => 'Testing\\Test\\Models\\Entity'
         ]);
 
         $files = Finder::create()->files()->in(__DIR__ . '/../../app')
-            ->contains('Test');
+            ->contains('TestInterface');
 
-        $this->assertEquals(1, count($files));
+        $this->assertEquals(3, count($files));
+
+        $files = Finder::create()->files()->in(__DIR__ . '/../../app')
+            ->contains('Repository');
+
+        $this->assertEquals(2, count($files));
 
         $tester->execute([
             'namespace' => 'Testing_Test',
-            'name' => 'Test',
-            'table-name' => 'tests_table',
-            'id-field' => 'test_id'
+            'interface-name' => 'TestInterface',
+            'model-class' => 'Testing\\Test\\Models\\Entity'
         ]);
 
         $this->assertContains('Such file already exists', $tester->getDisplay());

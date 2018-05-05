@@ -17,6 +17,7 @@ use HotRodCli\Commands\Classes\CreateModelCommand;
 use HotRodCli\Commands\Classes\CreateCollectionCommand;
 use HotRodCli\Commands\Xml\CreatePreferenceCommand;
 use HotRodCli\Commands\Classes\CreateObserverCommand;
+use HotRodCli\Commands\Classes\CreateRepositoryCommand;
 
 return [
     PSRFixCommand::class,
@@ -35,5 +36,6 @@ return [
     CreateModelCommand::class,
     CreateCollectionCommand::class,
     CreatePreferenceCommand::class,
-    CreateObserverCommand::class
+    CreateObserverCommand::class,
+    CreateRepositoryCommand::class
 ];

@@ -1,0 +1,50 @@
+<?php
+
+namespace {{namespace}}\Model;
+
+use {{namespace}}\Api\{{interface}} as EntityInterface;
+use {{Model}} as Entity;
+use \Magento\Framework\Api\SearchCriteriaInterface;
+
+class {{modelName}}Repository implements EntityInterface
+{
+    /**
+     * Save entity
+     */
+    public function save(Entity $entity)
+    {
+        //todo: fill with your code
+    }
+
+    /**
+     * Retrieve entity
+     */
+    public function getById($testId)
+    {
+        //todo: fill with your code
+    }
+
+    /**
+     * Delete entity.
+     */
+    public function delete(Entity $entity)
+    {
+        //todo: fill with your code
+    }
+
+    /**
+     * Delete entity by ID.
+     */
+    public function deleteById($id)
+    {
+        //todo: fill with your code
+    }
+
+    /**
+    * Get Entities List
+    */
+    public function getList(SearchCriteriaInterface $searchCriteria)
+    {
+        //todo: fill with your code
+    }
+}

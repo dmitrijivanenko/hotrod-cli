@@ -1,0 +1,35 @@
+<?php
+
+namespace {{namespace}}\Api;
+
+use \Magento\Framework\Api\SearchCriteriaInterface;
+use {{Model}} as Entity;
+
+interface {{name}}
+{
+    /**
+     * Save entity
+     *
+     **/
+    public function save(Entity $entity);
+
+    /**
+     * Get entity by id
+     */
+    public function getById($id);
+
+    /**
+     * Delete entity
+     */
+    public function delete(Entity $entity);
+
+    /**
+    * Delete entity by id
+    */
+    public function deleteById($id);
+
+    /**
+     * Get entities list
+     */
+    public function getList(SearchCriteriaInterface $searchCriteria);
+}
