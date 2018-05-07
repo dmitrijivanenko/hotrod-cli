@@ -17,12 +17,16 @@
         "symfony/finder": "^2.0 || ^3.0 || ^4.0",
         "vlucas/phpdotenv": "^2.4",
         "friendsofphp/php-cs-fixer": "*",
-        "symfony/filesystem": "^2.0 || ^3.0 || ^4.0"
+        "symfony/filesystem": "^2.0 || ^3.0 || ^4.0",
+        "eloquent/composer-npm-bridge": "^4"
     },
     "autoload": {
         "psr-4": {"HotRodCli\\": "src/"}
     },
     "bin": [
         "hotrod"
-    ]
+    ],
+    "scripts": {
+        "hotrod-ui": "ng serve --prod --port=42002"
+    }
 }
