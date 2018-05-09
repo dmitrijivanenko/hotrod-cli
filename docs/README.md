@@ -1,5 +1,13 @@
-# Magento 2 HotRod cli
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6aef969653174bdca4994964437a504e)](https://www.codacy.com/app/ivanenko.dmitrij/hotrod-cli?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dmitrijivanenko/hotrod-cli&amp;utm_campaign=Badge_Grade) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dmitrijivanenko/hotrod-cli/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dmitrijivanenko/hotrod-cli/?branch=master) [![Build Status](https://travis-ci.org/dmitrijivanenko/hotrod-cli.svg?branch=master)](https://travis-ci.org/dmitrijivanenko/hotrod-cli) [![codecov](https://codecov.io/gh/dmitrijivanenko/hotrod-cli/branch/master/graph/badge.svg)](https://codecov.io/gh/dmitrijivanenko/hotrod-cli)
+<p align="center"><img width="400" src="https://dmitrijivanenko.github.io/hotrod-cli/img/hotrodcli.jpg"></p>
+
+<p align="center">
+<a href="https://www.codacy.com/app/ivanenko.dmitrij/hotrod-cli?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dmitrijivanenko/hotrod-cli&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/6aef969653174bdca4994964437a504e" alt="Codacy Badge"></a>
+<a href="https://scrutinizer-ci.com/g/dmitrijivanenko/hotrod-cli/?branch=master"><img src="https://scrutinizer-ci.com/g/dmitrijivanenko/hotrod-cli/badges/quality-score.png?b=master" alt="Scrutinizer Code Quality"></a>
+<a href="https://travis-ci.org/dmitrijivanenko/hotrod-cli"><img src="https://travis-ci.org/dmitrijivanenko/hotrod-cli.svg?branch=master" alt="Build Status"></a>
+<a href="https://codecov.io/gh/dmitrijivanenko/hotrod-cli"><img src="https://codecov.io/gh/dmitrijivanenko/hotrod-cli/branch/master/graph/badge.svg" alt="codecov"></a>
+<a href="https://gitter.im/hotrod-cli/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/hotrod-cli/Lobby.svg" alt="Join the chat at https://gitter.im/hotrod-cli/Lobby"></a>
+</p>
+
 
 > This package helps you generate Magento 2 code using a clean commandline tool. All classes, templates, layouts and etc. can be dynamically generated and put together. 
 
