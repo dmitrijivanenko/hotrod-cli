@@ -1,7 +1,6 @@
 <p align="center"><img width="400" src="https://dmitrijivanenko.github.io/hotrod-cli/img/hotrodcli.jpg"></p>
 
 <p align="center">
-<a href="https://www.codacy.com/app/ivanenko.dmitrij/hotrod-cli?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dmitrijivanenko/hotrod-cli&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/6aef969653174bdca4994964437a504e" alt="Codacy Badge"></a>
 <a href="https://scrutinizer-ci.com/g/dmitrijivanenko/hotrod-cli/?branch=master"><img src="https://scrutinizer-ci.com/g/dmitrijivanenko/hotrod-cli/badges/quality-score.png?b=master" alt="Scrutinizer Code Quality"></a>
 <a href="https://travis-ci.org/dmitrijivanenko/hotrod-cli"><img src="https://travis-ci.org/dmitrijivanenko/hotrod-cli.svg?branch=master" alt="Build Status"></a>
 <a href="https://codecov.io/gh/dmitrijivanenko/hotrod-cli"><img src="https://codecov.io/gh/dmitrijivanenko/hotrod-cli/branch/master/graph/badge.svg" alt="codecov"></a>
