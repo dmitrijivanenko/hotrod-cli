@@ -28,7 +28,7 @@ $cdAppDir = $mode === 'development' ? '' : '/../../..';
 $app = new AppContainer();
 
 $app->bind(AppContainer::class, $app);
-$app->bind(Application::class, new Application('Magento Submarine', '0.01a'));
+$app->bind(Application::class, new Application('Magento Submarine', '0.0.2'));
 $app->bind('app_dir', __DIR__ . $cdAppDir);
 $app->bind('submarine_dir', __DIR__);
 $app->bind('resource_dir', __DIR__ . '/resources');
