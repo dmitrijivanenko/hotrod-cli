@@ -23,6 +23,7 @@ class ProcessBlockFileTest extends TestCase
         $output = $this->prophesize(OutputInterface::class);
         $application = $this->prophesize(Application::class);
         $command = $this->prophesize(Command::class);
+        $arrayInput = $this->prophesize(ArrayInput::class);
 
         $input->getOption()->shouldBeCalled()->withArguments(['no-block'])->willReturn(false);
         $input->getOption()->shouldBeCalled()->withArguments(['admin'])->willReturn(true);
@@ -39,9 +40,9 @@ class ProcessBlockFileTest extends TestCase
             '--admin' => true
         );
 
-        $greetInput = new ArrayInput($inputs);
+        $appContainer->resolve()->shouldBeCalled()->withArguments([ArrayInput::class, $inputs])->willReturn($arrayInput->reveal());
 
-        $command->run()->shouldBeCalled()->withArguments([$greetInput, $output->reveal()])->willReturn('test');
+        $command->run()->shouldBeCalled()->withArguments([$arrayInput, $output->reveal()])->willReturn('test');
 
         $processor($input->reveal(), $output->reveal());
     }

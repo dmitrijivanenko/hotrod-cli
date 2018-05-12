@@ -13,10 +13,7 @@ class AppContainer
      */
     protected $registry = [];
 
-    /**
-     * Tries to resolve the given class
-     */
-    public function resolve(string $class)
+    public function resolve(string $class, $args = null)
     {
         if (array_key_exists($class, $this->registry)) {
             return $this->registry[$class];
@@ -34,6 +31,12 @@ class AppContainer
             $result = new $class;
             $this->bind($class, $result);
 
+            return $result;
+        }
+
+        if (!is_null($args)) {
+            $result = $reflector->newInstance($args);
+            $this->bind($class, $result);
             return $result;
         }
 

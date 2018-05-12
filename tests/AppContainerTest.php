@@ -44,6 +44,16 @@ class Norf
 {
 }
 
+class Bufa
+{
+    protected $test;
+
+    public function __construct($test)
+    {
+        $this->test = $test;
+    }
+}
+
 abstract class AbstractTest
 {
 }
@@ -97,6 +107,10 @@ class AppContainerTest extends TestCase
         $class = $this->appContainer->resolve(Baz::class);
 
         $this->assertInstanceOf(Baz::class, $class);
+
+        $class = $this->appContainer->resolve(Bufa::class, 'test');
+
+        $this->assertInstanceOf(Bufa::class, $class);
     }
 
     /**

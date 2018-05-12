@@ -36,7 +36,8 @@ class ProcessBlockFile
                 $inputs['--admin'] = 'true';
             }
 
-            $greetInput = new ArrayInput($inputs);
+            //$greetInput = new ArrayInput($inputs);
+            $greetInput = $app->resolve(ArrayInput::class, $inputs);
             $command->run($greetInput, $output);
         }
     }
