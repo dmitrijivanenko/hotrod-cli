@@ -29,7 +29,7 @@
     ],
     "scripts": {
         "hotrod-ui": [
-            "ng build --base-href='/dist/' --prod",
+            "ng build --base-href='/dist/ui-app/' --prod",
             "php -S localhost:8000"
         ]
     }

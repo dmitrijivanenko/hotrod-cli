@@ -15,6 +15,6 @@ class GetCommands
 
     public function __invoke()
     {
-        return json_encode(array_keys($this->container->resolve('commands')));
+        return json_encode(array_keys($this->container->get('commands')));
     }
 }

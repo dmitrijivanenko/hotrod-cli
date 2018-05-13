@@ -20,7 +20,7 @@ class Processor
 
     protected $inputs;
 
-    /** @var OutputInterface */
+    /** @var BufferedOutput */
     protected $output;
 
     public function __construct(AppContainer $appContainer)

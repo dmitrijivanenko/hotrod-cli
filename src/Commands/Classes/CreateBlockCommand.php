@@ -54,30 +54,14 @@ class CreateBlockCommand extends BaseCommand
         try {
             $jobs[IsModuleExists::class]->handle($input->getArgument('namespace'), $output);
 
-            $jobs[CopyFile::class]->handle(
-                $app->get('resource_dir') . '/classes/Block.tphp',
-                $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] .
-                '/Block/' . $scopeDir . ucwords($name) . '.php'
-            );
+            $jobs[CopyFile::class]->handle($app->get('resource_dir') . '/classes/Block.tphp', $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Block/' . $scopeDir . ucwords($name) . '.php');
 
-            // replace namespace
-            $jobs[ReplaceText::class]->handle(
-                '{{namespace}}',
-                $namespace[0] . '\\' . $namespace[1] . '\\Block' . $scopeNamespace,
-                $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Block/'
-            );
+            $this->replaceTextsSequence([
+                '{{namespace}}' => $namespace[0] . '\\' . $namespace[1] . '\\Block' . $scopeNamespace,
+                '{{blockName}}' => ucwords($name)
+            ], $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Block/');
 
-            // replace blockname
-            $jobs[ReplaceText::class]->handle(
-                '{{blockName}}',
-                ucwords($name),
-                $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Block/'
-            );
-
-            $output->writeln('<info>'
-                . $namespace[0] . '\\'
-                . $namespace[1] . '\\Block\\'
-                . ucwords($name) . ' was successfully created</info>');
+            $output->writeln('<info>' . $namespace[0] . '\\' . $namespace[1] . '\\Block\\' . ucwords($name) . ' was successfully created</info>');
         } catch (\Throwable $e) {
             $output->writeln('<error>' . $e->getMessage() . '</error>');
         }

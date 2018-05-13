@@ -10,6 +10,6 @@ $api->post('/create/{command}', function (ServerRequestInterface $request, Respo
     return $response->getBody()->write($app->resolve(Processor::class)($request, $args));
 });
 
-$api->get('/commands', function(ServerRequestInterface $request, ResponseInterface $response, $arg) use ($app) {
+$api->get('/commands', function(ServerRequestInterface $request, ResponseInterface $response) use ($app) {
     return $response->getBody()->write($app->resolve(GetCommands::class)());
 });
