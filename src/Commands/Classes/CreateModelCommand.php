@@ -27,31 +27,38 @@ class CreateModelCommand extends BaseCommand
         ProcessRepository::class => null
     ];
 
+    protected $configs = [
+        'arguments' => [
+            [
+                'name' => 'namespace',
+                'mode' => InputArgument::REQUIRED,
+                'description' => 'What is the namespace on the module'
+            ],
+            [
+                'name' => 'name',
+                'mode' => InputArgument::REQUIRED,
+                'description' => 'What is the name of the new Model'
+            ],
+            [
+                'name' => 'table-name',
+                'mode' => InputArgument::REQUIRED,
+                'description' => 'What is the table name for the new Model'
+            ],
+            [
+                'name' => 'id-field',
+                'mode' => InputArgument::REQUIRED,
+                'description' => 'What is the id-field of the table'
+            ]
+        ],
+        'options' => [],
+        'description' => 'Creates a new model',
+        'name' => 'create:model',
+        'help' => 'creates a new Resource Model in a given namespace'
+    ];
+
     protected function configure()
     {
-        $this->setName('create:model')
-            ->setDescription('Creates a new model')
-            ->addArgument(
-                'namespace',
-                InputArgument::REQUIRED,
-                'What is the namespace on the module'
-            )
-            ->addArgument(
-                'name',
-                InputArgument::REQUIRED,
-                'What is the name of the new Model'
-            )
-            ->addArgument(
-                'table-name',
-                InputArgument::REQUIRED,
-                'What is the table name for the new Model'
-            )
-            ->addArgument(
-                'id-field',
-                InputArgument::REQUIRED,
-                'What is the id-field of the table'
-            )
-            ->setHelp('creates a new Resource Model in a given namespace');
+        $this->config();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

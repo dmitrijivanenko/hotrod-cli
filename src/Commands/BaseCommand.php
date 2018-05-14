@@ -49,13 +49,13 @@ class BaseCommand extends Command
         }
     }
 
-    protected function config(BaseCommand $command)
+    protected function config()
     {
-        $configs = $command->configs;
-        $command->setName($configs['name'])->setDescription($configs['description'])->setHelp($configs['help']);
+        $configs = $this->configs;
+        $this->setName($configs['name'])->setDescription($configs['description'])->setHelp($configs['help']);
 
         foreach ($configs['arguments'] as $argument) {
-            $command->addArgument(
+            $this->addArgument(
                 $argument['name'],
                 $argument['mode'],
                 $argument['description']
@@ -63,7 +63,7 @@ class BaseCommand extends Command
         }
 
         foreach ($configs['options'] as $option) {
-            $command->addOption(
+            $this->addOption(
                 $option['name'],
                 $option['shortcut'],
                 $option['mode'],

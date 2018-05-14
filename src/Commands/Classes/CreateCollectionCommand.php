@@ -18,31 +18,38 @@ class CreateCollectionCommand extends BaseCommand
         IsModuleExists::class => null
     ];
 
+    protected $configs = [
+        'arguments' => [
+            [
+                'name' => 'namespace',
+                'mode' => InputArgument::REQUIRED,
+                'description' => 'What is the namespace on the module'
+            ],
+            [
+                'name' => 'name',
+                'mode' => InputArgument::REQUIRED,
+                'description' => 'What is the name of the model'
+            ],
+            [
+                'name' => 'table-name',
+                'mode' => InputArgument::REQUIRED,
+                'description' => 'What is the table name for the model'
+            ],
+            [
+                'name' => 'id-field',
+                'mode' => InputArgument::REQUIRED,
+                'description' => 'What is the id-field of the table'
+            ]
+        ],
+        'options' => [],
+        'description' => 'Creates a new collection',
+        'name' => 'create:collection',
+        'help' => 'creates a new Collection in a given namespace'
+    ];
+
     protected function configure()
     {
-        $this->setName('create:collection')
-            ->setDescription('Creates a new collection')
-            ->addArgument(
-                'namespace',
-                InputArgument::REQUIRED,
-                'What is the namespace on the module'
-            )
-            ->addArgument(
-                'name',
-                InputArgument::REQUIRED,
-                'What is the name of the model'
-            )
-            ->addArgument(
-                'table-name',
-                InputArgument::REQUIRED,
-                'What is the table name for the model'
-            )
-            ->addArgument(
-                'id-field',
-                InputArgument::REQUIRED,
-                'What is the id-field of the table'
-            )
-            ->setHelp('creates a new Collection in a given namespace');
+        $this->config();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

@@ -85,7 +85,7 @@ class CreateControllerCommand extends BaseCommand
 
     protected function configure()
     {
-        $this->config($this);
+        $this->config();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

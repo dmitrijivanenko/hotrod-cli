@@ -18,31 +18,38 @@ class CreateResourceModelCommand extends BaseCommand
         ReplaceText::class => null
     ];
 
+    protected $configs = [
+        'arguments' => [
+            [
+                'name' => 'namespace',
+                'mode' => InputArgument::REQUIRED,
+                'description' => 'What is the namespace on the module'
+            ],
+            [
+                'name' => 'name',
+                'mode' => InputArgument::REQUIRED,
+                'description' => 'What is the name of the new Resource Model'
+            ],
+            [
+                'name' => 'table-name',
+                'mode' => InputArgument::REQUIRED,
+                'description' => 'What is the table name for the new Resource Model'
+            ],
+            [
+                'name' => 'id-field',
+                'mode' => InputArgument::REQUIRED,
+                'description' => 'What is the id-field of the table'
+            ]
+        ],
+        'options' => [],
+        'description' => 'Creates a new resource-model',
+        'name' => 'create:resource-model',
+        'help' => 'creates a new Resource Model in a given namespace'
+    ];
+
     protected function configure()
     {
-        $this->setName('create:resource-model')
-            ->setDescription('Creates a new resource-model')
-            ->addArgument(
-                'namespace',
-                InputArgument::REQUIRED,
-                'What is the namespace on the module'
-            )
-            ->addArgument(
-                'name',
-                InputArgument::REQUIRED,
-                'What is the name of the new Resource Model'
-            )
-            ->addArgument(
-                'table-name',
-                InputArgument::REQUIRED,
-                'What is the table name for the new Resource Model'
-            )
-            ->addArgument(
-                'id-field',
-                InputArgument::REQUIRED,
-                'What is the id-field of the table'
-            )
-            ->setHelp('creates a new Resource Model in a given namespace');
+        $this->config();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

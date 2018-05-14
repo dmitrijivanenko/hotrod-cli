@@ -16,42 +16,50 @@ class CreateLayoutCommand extends BaseCommand
         ReplaceText::class => null
     ];
 
+    protected $configs = [
+        'arguments' => [
+            [
+                'name' => 'namespace',
+                'mode' => InputArgument::REQUIRED,
+                'description' => 'What is the namespace on the module'
+            ],
+            [
+                'name' => 'layout-name',
+                'mode' => InputArgument::REQUIRED,
+                'description' => 'name of the layout'
+            ],
+            [
+                'name' => 'layout-file-name',
+                'mode' => InputArgument::REQUIRED,
+                'description' => 'name of the layout\'s file'
+            ],
+            [
+                'name' => 'block-class',
+                'mode' => InputArgument::REQUIRED,
+                'description' => 'full class name of the block'
+            ],
+            [
+                'name' => 'template',
+                'mode' => InputArgument::REQUIRED,
+                'description' => 'template file'
+            ]
+        ],
+        'options' => [
+            [
+                'name' => 'admin',
+                'shortcut' => null,
+                'mode' => InputArgument::OPTIONAL,
+                'description' => 'Is this layout for admin part?'
+            ]
+        ],
+        'description' => 'Creates a new layout file',
+        'name' => 'create:layout',
+        'help' => 'creates a new controller in a given namespace with a given route'
+    ];
+
     public function configure()
     {
-        $this->setName('create:layout')
-            ->setDescription('Creates a new layout file')
-            ->addArgument(
-                'namespace',
-                InputArgument::REQUIRED,
-                'What is the namespace on the module'
-            )
-            ->addArgument(
-                'layout-name',
-                InputArgument::REQUIRED,
-                'name of the layout'
-            )
-            ->addArgument(
-                'layout-file-name',
-                InputArgument::REQUIRED,
-                'name of the layout\'s file'
-            )
-            ->addArgument(
-                'block-class',
-                InputArgument::REQUIRED,
-                'full class name of the block'
-            )
-            ->addArgument(
-                'template',
-                InputArgument::REQUIRED,
-                'template file'
-            )
-            ->addOption(
-                'admin',
-                null,
-                InputArgument::OPTIONAL,
-                'Is this layout for admin part?'
-            )
-            ->setHelp('creates a new controller in a given namespace with a given route');
+        $this->config();
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
