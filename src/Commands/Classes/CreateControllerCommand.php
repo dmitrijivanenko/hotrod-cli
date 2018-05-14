@@ -33,51 +33,59 @@ class CreateControllerCommand extends BaseCommand
         ProcessTemplateFile::class => null
     ];
 
+    protected $configs = [
+        'arguments' => [
+            [
+                'name' => 'namespace',
+                'mode' => InputArgument::REQUIRED,
+                'description' => 'What is the namespace on the module'
+            ],
+            [
+                'name' => 'route',
+                'mode' => InputArgument::REQUIRED,
+                'description' => 'route pattern is "route_name/controller/action"'
+            ]
+        ],
+        'options' => [
+            [
+                'name' => 'no-block',
+                'shortcut' => null,
+                'mode' => InputArgument::OPTIONAL,
+                'description' => 'Do you need a block?'
+            ],
+            [
+                'name' => 'no-layout',
+                'shortcut' => null,
+                'mode' => InputArgument::OPTIONAL,
+                'description' => 'Do you need a layout file?'
+            ],
+            [
+                'name' => 'no-routes',
+                'shortcut' => null,
+                'mode' => InputArgument::OPTIONAL,
+                'description' => 'Do you need a routes file?'
+            ],
+            [
+                'name' => 'no-template',
+                'shortcut' => null,
+                'mode' => InputArgument::OPTIONAL,
+                'description' => 'Do you need a template file?'
+            ],
+            [
+                'name' => 'admin',
+                'shortcut' => null,
+                'mode' => InputArgument::OPTIONAL,
+                'description' => 'Is this template for admin part?'
+            ]
+        ],
+        'description' => 'Creates a new controller',
+        'name' => 'create:controller',
+        'help' => 'creates a new controller in a given namespace with a given route'
+    ];
+
     protected function configure()
     {
-        $this->setName('create:controller')
-            ->setDescription('Creates a new controller')
-            ->addArgument(
-                'namespace',
-                InputArgument::REQUIRED,
-                'What is the namespace on the module'
-            )
-            ->addArgument(
-                'route',
-                InputArgument::REQUIRED,
-                'route pattern is "route_name/controller/action"'
-            )
-            ->addOption(
-                'no-block',
-                null,
-                InputArgument::OPTIONAL,
-                'Do you need a block?'
-            )
-            ->addOption(
-                'no-layout',
-                null,
-                InputArgument::OPTIONAL,
-                'Do you need a layout file?'
-            )
-            ->addOption(
-                'no-routes',
-                null,
-                InputArgument::OPTIONAL,
-                'Do you need a routes file'
-            )
-            ->addOption(
-                'no-template',
-                null,
-                InputArgument::OPTIONAL,
-                'Do you need a template file'
-            )
-            ->addOption(
-                'admin',
-                null,
-                InputArgument::OPTIONAL,
-                'Is this template for admin part?'
-            )
-            ->setHelp('creates a new controller in a given namespace with a given route');
+        $this->config($this);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

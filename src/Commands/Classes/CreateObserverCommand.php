@@ -91,5 +91,7 @@ class CreateObserverCommand extends BaseCommand
             'observer-name' => strtolower($namespace[0] . '_' . $namespace[1] . '_' . $input->getArgument('observer')),
             'instance' => $namespace[0] . '\\' . $namespace[1] . '\\Observer\\' . $input->getArgument('observer'),
         ]);
+
+        $output->writeln('<info>Event was successfully added</info>');
     }
 }

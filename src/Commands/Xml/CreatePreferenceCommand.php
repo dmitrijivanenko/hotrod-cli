@@ -19,32 +19,40 @@ class CreatePreferenceCommand extends BaseCommand
         AddPreference::class => null
     ];
 
+    protected $configs = [
+        'arguments' => [
+            [
+                'name' => 'namespace',
+                'mode' => InputArgument::REQUIRED,
+                'description' => 'What is the namespace on the module'
+            ],
+            [
+                'name' => 'for',
+                'mode' => InputArgument::REQUIRED,
+                'description' => 'What class do you want to override'
+            ],
+            [
+                'name' => 'type',
+                'mode' => InputArgument::REQUIRED,
+                'description' => 'What is your class'
+            ]
+        ],
+        'options' => [
+            [
+                'name' => 'scope',
+                'shortcut' => null,
+                'mode' => InputArgument::OPTIONAL,
+                'description' => 'Is this di for admin or frontend part?'
+            ]
+        ],
+        'description' => 'Creates an override preference',
+        'name' => 'create:preference',
+        'help' => 'creates an override preference in a given namespace'
+    ];
+
     protected function configure()
     {
-        $this->setName('create:preference')
-            ->setDescription('Creates an override preference')
-            ->addArgument(
-                'namespace',
-                InputArgument::REQUIRED,
-                'What is the namespace on the module'
-            )
-            ->addArgument(
-                'for',
-                InputArgument::REQUIRED,
-                'What class do you want to override'
-            )
-            ->addArgument(
-                'type',
-                InputArgument::REQUIRED,
-                'What is your class'
-            )
-            ->addOption(
-                'scope',
-                null,
-                InputArgument::OPTIONAL,
-                'Is this di for admin or frontend part?'
-            )
-            ->setHelp('creates an override preference in a given namespace');
+        $this->config($this);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

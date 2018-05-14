@@ -16,6 +16,14 @@ class BaseCommand extends Command
 
     protected $processors = [];
 
+    protected $configs = [
+        'arguments' => [],
+        'options' => [],
+        'description' => '',
+        'name' => '',
+        'help' => ''
+    ];
+
     /** @var  ReplaceText */
     protected $replaceTextJob;
 
@@ -38,6 +46,29 @@ class BaseCommand extends Command
     {
         foreach ($this->processors as $key => $processor) {
             $this->processors[$key] = $this->appContainer->resolve($key);
+        }
+    }
+
+    protected function config(BaseCommand $command)
+    {
+        $configs = $command->configs;
+        $command->setName($configs['name'])->setDescription($configs['description'])->setHelp($configs['help']);
+
+        foreach ($configs['arguments'] as $argument) {
+            $command->addArgument(
+                $argument['name'],
+                $argument['mode'],
+                $argument['description']
+            );
+        }
+
+        foreach ($configs['options'] as $option) {
+            $command->addOption(
+                $option['name'],
+                $option['shortcut'],
+                $option['mode'],
+                $option['description']
+            );
         }
     }
 
