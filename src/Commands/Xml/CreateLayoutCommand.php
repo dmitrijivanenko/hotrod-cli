@@ -65,39 +65,31 @@ class CreateLayoutCommand extends BaseCommand
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $this->setJobs();
-        $jobs = $this->jobs;
         $namespace = explode('_', $input->getArgument('namespace'));
-        $scope = $input->getOption('admin') ? 'adminhtml' : 'frontend';
-        $app = $this->appContainer;
 
-        $jobs[CopyFile::class]->handle(
-            $app->get('resource_dir') . '/xml/layout.xml',
+        $this->jobs[CopyFile::class]->handle(
+            $this->appContainer->get('resource_dir') . '/xml/layout.xml',
             $this->appContainer->get('app_dir')
             . '/app/code/' . $namespace[0] . '/' . $namespace[1]
-            . '/view/' . $scope . '/layout/' . $input->getArgument('layout-file-name') . '.xml'
+            . '/view/' . $this->getScope($input) . '/layout/' . $input->getArgument('layout-file-name') . '.xml'
         );
 
-        $jobs[ReplaceText::class]->handle(
-            '{{block_class}}',
-            $input->getArgument('block-class'),
-            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/view/'
-        );
+        $this->replaceTextsSequence([
+            '{{block_class}}' => $input->getArgument('block-class'),
+            '{{block_name}}' => strtolower($input->getArgument('layout-name')),
+            '{{block_template}}' => $namespace[0] . '_' . $namespace[1] . '::' . $input->getArgument('template') . '.phtml'
+        ], $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/view/');
 
-        $jobs[ReplaceText::class]->handle(
-            '{{block_name}}',
-            strtolower($input->getArgument('layout-name')),
-            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/view/'
-        );
-
-        $jobs[ReplaceText::class]->handle(
-            '{{block_template}}',
-            $namespace[0] . '_' . $namespace[1] . '::' . $input->getArgument('template') . '.phtml',
-            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/view/'
-        );
-
-        $output->writeln('<info>'
-            . $namespace[0] . '/'
-            . $namespace[1] . '/view/frontend/layout/'
+        $output->writeln('<info>' . $namespace[0] . '/' . $namespace[1] . '/view/frontend/layout/'
             . strtolower($input->getArgument('layout-file-name')) . '.xml was successfully created</info>');
+    }
+
+    /**
+     * @param InputInterface $input
+     * @return string
+     */
+    protected function getScope(InputInterface $input): string
+    {
+        return $input->getOption('admin') ? 'adminhtml' : 'frontend';
     }
 }
