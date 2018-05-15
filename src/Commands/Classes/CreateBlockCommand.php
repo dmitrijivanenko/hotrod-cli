@@ -44,26 +44,41 @@ class CreateBlockCommand extends BaseCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->setJobs();
-        $jobs = $this->jobs;
-        $namespace = explode('_', $input->getArgument('namespace'));
-        $name = $input->getArgument('blockname');
-        $scopeDir = $input->getOption('admin') ? 'Adminhtml/' : '';
-        $scopeNamespace = $input->getOption('admin') ? '\\Adminhtml' : '';
-        $app = $this->appContainer;
 
         try {
-            $jobs[IsModuleExists::class]->handle($input->getArgument('namespace'), $output);
-
-            $jobs[CopyFile::class]->handle($app->get('resource_dir') . '/classes/Block.tphp', $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Block/' . $scopeDir . ucwords($name) . '.php');
-
-            $this->replaceTextsSequence([
-                '{{namespace}}' => $namespace[0] . '\\' . $namespace[1] . '\\Block' . $scopeNamespace,
-                '{{blockName}}' => ucwords($name)
-            ], $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Block/');
-
-            $output->writeln('<info>' . $namespace[0] . '\\' . $namespace[1] . '\\Block\\' . ucwords($name) . ' was successfully created</info>');
+            $this->processBlockFile($input, $output);
         } catch (\Throwable $e) {
             $output->writeln('<error>' . $e->getMessage() . '</error>');
         }
+    }
+
+    public function processBlockFile(InputInterface $input, OutputInterface $output)
+    {
+        $namespace = explode('_', $input->getArgument('namespace'));
+        $name = $input->getArgument('blockname');
+
+        $this->jobs[IsModuleExists::class]->handle($input->getArgument('namespace'), $output);
+        $this->jobs[CopyFile::class]->handle($this->appContainer->get('resource_dir') . '/classes/Block.tphp', $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Block/' . $this->getScope($input) . ucwords($name) . '.php');
+        $this->replaceTextsSequence(['{{namespace}}' => $namespace[0] . '\\' . $namespace[1] . '\\Block' . $this->getScopeNamespace($input), '{{blockName}}' => ucwords($name)], $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Block/');
+
+        $output->writeln('<info>' . $namespace[0] . '\\' . $namespace[1] . '\\Block\\' . ucwords($name) . ' was successfully created</info>');
+    }
+
+    /**
+     * @param InputInterface $input
+     * @return string
+     */
+    protected function getScope(InputInterface $input): string
+    {
+        return $input->getOption('admin') ? 'Adminhtml/' : '';
+    }
+
+    /**
+     * @param InputInterface $input
+     * @return string
+     */
+    protected function getScopeNamespace(InputInterface $input): string
+    {
+        return $input->getOption('admin') ? '\\Adminhtml' : '';
     }
 }
