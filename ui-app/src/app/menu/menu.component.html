@@ -1,0 +1,7 @@
+<div class="row list-group">
+  <div class="col-xs-12" *ngIf="commands">
+    <a class="list-group-item" *ngFor="let key of objectKeys(commands)" [routerLink]="['/command', key]">
+      {{ commands[key].name }}
+    </a>
+  </div>
+</div>

@@ -43,9 +43,9 @@ class ProcessorTest extends TestCase
 
         $command->run()->shouldBeCalled()->withArguments([$arrayInput->reveal(), $output->reveal()])->willReturn(0);
 
-        $output->fetch()->shouldBeCalled()->willReturn('test');
+        $output->fetch()->shouldBeCalled()->willReturn('test' . PHP_EOL . 'test' . PHP_EOL . 'test' . PHP_EOL);
 
-        $this->assertEquals('{"success":true,"output":"test"}', $processor($request->reveal(), ['command' => 'module:create']));
+        $this->assertEquals('{"success":true,"output":["test","test","test"]}', $processor($request->reveal(), ['command' => 'module:create']));
 
         $this->assertEquals(null, $processor->getCommand('create:test'));
     }

@@ -4,6 +4,7 @@ namespace HotRodCli\Api;
 
 use HotRodCli\AppContainer;
 use PHPUnit\Framework\TestCase;
+use HotRodCli\Commands\Classes\CreateControllerCommand;
 
 class GetCommandsTest extends TestCase
 {
@@ -13,7 +14,7 @@ class GetCommandsTest extends TestCase
     public function it_returns_all_registered_commands()
     {
         $commands = [
-            'test-command' => null
+            'create:controller' => CreateControllerCommand::class
         ];
 
         $container = new AppContainer();
@@ -21,6 +22,6 @@ class GetCommandsTest extends TestCase
 
         $api = new GetCommands($container);
 
-        $this->assertEquals('["test-command"]', $api());
+        $this->assertContains('create:controller', $api());
     }
 }

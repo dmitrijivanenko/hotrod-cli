@@ -1,0 +1,30 @@
+<div class="container ml-5" *ngIf="command">
+    <h2>{{ command.name }}</h2>
+    <h4>{{ command.description }}</h4>
+    <p>{{ command.help }}</p>
+</div>
+<div class="container ml-5 mt-5" *ngIf="command">
+    <form [formGroup]="formGroup">
+        <h3>Arguments</h3>
+        <div class="form-group" *ngFor="let argument of command.arguments">
+            <label>{{ argument.name }}</label>
+            <input class="form-control" [formControlName]="argument.name">
+            <small class="form-text text-muted">{{ argument.description }}</small>
+        </div>
+
+        <h3 *ngIf="command.options.length > 0">Options</h3>
+        <div class="form-group" *ngFor="let option of command.options">
+            <label>{{ option.name }}</label>
+            <input class="form-control" [formControlName]="option.name">
+            <small class="form-text text-muted">{{ option.description }}</small>
+        </div>
+    </form>
+
+    <button class="btn btn-primary" (click)="runCommand()">Run command</button>
+
+    <div class="container mt-5" *ngIf="output">
+        <div class="alert alert-primary" role="alert" *ngFor="let line of output">
+            {{ line }}
+        </div>
+    </div>
+</div>

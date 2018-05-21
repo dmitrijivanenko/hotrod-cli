@@ -42,7 +42,7 @@ class Processor
 
         return json_encode([
             "success" => $result == 0 ? true : false,
-            "output" => $this->output->fetch()
+            "output" => $this->formatOutput($this->output->fetch())
         ]);
     }
 
@@ -66,5 +66,13 @@ class Processor
         }
 
         return $this;
+    }
+
+    public function formatOutput(string $output)
+    {
+        $result = explode(PHP_EOL, $output);
+        array_pop($result);
+
+        return $result;
     }
 }

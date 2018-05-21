@@ -27,17 +27,17 @@ class ProcessBlockFile
             $application = $app->resolve(Application::class);
             $command = $application->find('create:block');
 
-            $inputs = array(
+            $inputs = [
                 'namespace' => $input->getArgument('namespace'),
-                'blockname' =>$controller[1]
-            );
+                'blockname' => $controller[1]
+            ];
 
             if ($input->getOption('admin')) {
                 $inputs['--admin'] = 'true';
             }
 
-            //$greetInput = new ArrayInput($inputs);
-            $greetInput = $app->resolve(ArrayInput::class, $inputs);
+            $greetInput = new ArrayInput($inputs);
+            //$greetInput = $app->resolve(ArrayInput::class, $inputs);
             $command->run($greetInput, $output);
         }
     }

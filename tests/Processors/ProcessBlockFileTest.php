@@ -40,9 +40,9 @@ class ProcessBlockFileTest extends TestCase
             '--admin' => true
         );
 
-        $appContainer->resolve()->shouldBeCalled()->withArguments([ArrayInput::class, $inputs])->willReturn($arrayInput->reveal());
+        $greetInput = new ArrayInput($inputs);
 
-        $command->run()->shouldBeCalled()->withArguments([$arrayInput, $output->reveal()])->willReturn('test');
+        $command->run()->shouldBeCalled()->withArguments([$greetInput, $output->reveal()])->willReturn('test');
 
         $processor($input->reveal(), $output->reveal());
     }

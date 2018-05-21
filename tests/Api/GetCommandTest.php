@@ -13,7 +13,7 @@ class GetCommandTest extends TestCase
      */
     public function it_returns_commands_arguments_and_options()
     {
-        $result = '{"arguments":[{"name":"namespace","description":"What is the namespace on the module"},{"name":"route","description":"route pattern is \"route_name\/controller\/action\""}],"options":[{"name":"no-block","description":"Do you need a block?"},{"name":"no-layout","description":"Do you need a layout file?"},{"name":"no-routes","description":"Do you need a routes file?"},{"name":"no-template","description":"Do you need a template file?"},{"name":"admin","description":"Is this template for admin part?"}]}';
+        $contains = '"name":"create:controller","description":"Creates a new controller"';
         $container = new AppContainer();
 
         $commands = [
@@ -26,6 +26,6 @@ class GetCommandTest extends TestCase
 
         $getCommand = new GetCommand($container);
 
-        $this->assertEquals($result, $getCommand($args));
+        $this->assertContains($contains, $getCommand($args));
     }
 }

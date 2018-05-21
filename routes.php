@@ -18,3 +18,7 @@ $api->get('/commands', function(ServerRequestInterface $request, ResponseInterfa
 $api->get('/command/{command}', function(ServerRequestInterface $request, ResponseInterface $response, $args) use ($app) {
     return $response->getBody()->write($app->resolve(GetCommand::class)($args));
 });
+
+$api->get('/', function (ServerRequestInterface $request, ResponseInterface $response) {
+    return $response->withStatus(302)->withHeader('Location', '/dist/ui-app');
+});

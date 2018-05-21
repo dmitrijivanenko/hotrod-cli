@@ -3,6 +3,7 @@
 namespace HotRodCli\Api;
 
 use HotRodCli\AppContainer;
+use HotRodCli\Commands\BaseCommand;
 
 class GetCommands
 {
@@ -13,8 +14,50 @@ class GetCommands
         $this->container = $appContainer;
     }
 
-    public function __invoke()
+    public function __invoke($args = [])
     {
-        return json_encode(array_keys($this->container->get('commands')));
+        $result = [];
+
+        foreach ($this->container->get('commands') as $code => $className) {
+            $command = $this->container->resolve($className);
+
+            $result[$code] = [
+                'name' => $command->getName(),
+                'description' => $command->getDescription(),
+                'help' => $command->getHelp(),
+                'arguments' => $this->constructArguments($command),
+                'options' => $this->constructOptions($command)
+            ];
+        }
+
+        return json_encode($result);
+    }
+
+    public function constructArguments(BaseCommand $command)
+    {
+        $result = [];
+
+        foreach ($command->getDefinition()->getArguments() as $argument) {
+            $result[] = [
+                'name' => $argument->getName(),
+                'description' => $argument->getDescription()
+            ];
+        }
+
+        return $result;
+    }
+
+    public function constructOptions(BaseCommand $command)
+    {
+        $result = [];
+
+        foreach ($command->getDefinition()->getOptions() as $option) {
+            $result[] = [
+                'name' => $option->getName(),
+                'description' => $option->getDescription()
+            ];
+        }
+
+        return $result;
     }
 }
