@@ -25,7 +25,8 @@
         "psr-4": {"HotRodCli\\": "src/"}
     },
     "bin": [
-        "hotrod"
+        "hotrod",
+        "hotrod-ui"
     ],
     "scripts": {
         "hotrod-ui": [
