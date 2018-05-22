@@ -12,11 +12,10 @@ This package helps you generate Magento 2 code using a clean commandline tool. A
 ## Features
 
 - Generates different kind of magento 2 module components
+- has a build in UI
 - Easy to start using
-- Absolutely free
-- PSR2 check code command included
-- Clean and fully test covered package code
-- Easy to extend for your needs
+
+<p align="center"><img width="800" src="https://dmitrijivanenko.github.io/hotrod-cli/img/screens.png"></p>
 
 ## Documentation
 
