@@ -39,6 +39,14 @@ This package helps you generate Magento 2 code using a clean commandline tool. A
    - `app/code/Dmiva/Test/Controller/Testing/Test.php`   
    - `app/code/Dmiva/Test/Block/Testing.php`
    - `app/code/Dmiva/Test/view/frontend/templates/test.phtml`
+   
+   To open the User Interface, run this command
+   
+   ``` bash
+   vendor/bin/hotrod-ui
+   ```
+   
+   It will build the Angular app and run the basic build in php server on `http://localhost:8008/`. 
 
 ## Installation
    
