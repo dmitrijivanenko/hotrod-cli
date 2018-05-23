@@ -29,9 +29,6 @@
         "hotrod-ui"
     ],
     "scripts": {
-        "post-install-cmd": [
-            "npm install"
-        ],
         "hotrod-ui": [
             "ng build --base-href='/dist/ui-app/' --prod",
             "php -S localhost:8000"
