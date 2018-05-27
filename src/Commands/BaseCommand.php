@@ -12,6 +12,8 @@ class BaseCommand extends Command
 {
     protected $appContainer;
 
+    protected $info;
+
     protected $jobs = [];
 
     protected $processors = [];
@@ -21,7 +23,8 @@ class BaseCommand extends Command
         'options' => [],
         'description' => '',
         'name' => '',
-        'help' => ''
+        'help' => '',
+        'info' => ''
     ];
 
     /** @var  ReplaceText */
@@ -70,6 +73,10 @@ class BaseCommand extends Command
                 $option['description']
             );
         }
+
+        if (isset($configs['info'])) {
+            $this->setInfo($configs['info']);
+        }
     }
 
     public function runProcessors(InputInterface $input, OutputInterface $output)
@@ -88,5 +95,17 @@ class BaseCommand extends Command
         }
 
         return $this;
+    }
+
+    public function setInfo(string $info)
+    {
+        $this->info = $info;
+
+        return $this;
+    }
+
+    public function getInfo()
+    {
+        return $this->info;
     }
 }
