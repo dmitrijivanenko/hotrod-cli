@@ -26,7 +26,8 @@ class GetCommands
                 'description' => $command->getDescription(),
                 'help' => $command->getHelp(),
                 'arguments' => $this->constructArguments($command),
-                'options' => $this->constructOptions($command)
+                'options' => $this->constructOptions($command),
+                'info' => $command->getInfo()
             ];
         }
 

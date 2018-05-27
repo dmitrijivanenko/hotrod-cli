@@ -18,6 +18,7 @@ use HotRodCli\Commands\Classes\CreateCollectionCommand;
 use HotRodCli\Commands\Xml\CreatePreferenceCommand;
 use HotRodCli\Commands\Classes\CreateObserverCommand;
 use HotRodCli\Commands\Classes\CreateRepositoryCommand;
+use HotRodCli\Commands\Frontend\CreateRequireJsCommand;
 
 return [
     'module:create' => CreateCommand::class,
@@ -37,5 +38,7 @@ return [
     'create:preference' => CreatePreferenceCommand::class,
     'create:observer' => CreateObserverCommand::class,
     'create:repository' => CreateRepositoryCommand::class,
+    'create:requirejs-config' => CreateRequireJsCommand::class,
+    'create:js-script' => \HotRodCli\Commands\Frontend\CreateScriptCommand::class,
     'psr:fix' => PSRFixCommand::class,
 ];
