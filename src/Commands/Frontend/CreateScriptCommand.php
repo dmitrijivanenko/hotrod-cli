@@ -5,6 +5,7 @@ namespace HotRodCli\Commands\Frontend;
 use HotRodCli\Commands\BaseCommand;
 use HotRodCli\Jobs\Filesystem\CopyFile;
 use HotRodCli\Jobs\Js\AddJs;
+use HotRodCli\Jobs\Js\AddMageInit;
 use HotRodCli\Jobs\Module\IsModuleExists;
 use HotRodCli\Processors\ProcessRequireJs;
 use Symfony\Component\Console\Input\InputArgument;
@@ -17,7 +18,8 @@ class CreateScriptCommand extends BaseCommand
     protected $jobs = [
         CopyFile::class => null,
         IsModuleExists::class => null,
-        AddJs::class => null
+        AddJs::class => null,
+        AddMageInit::class => null
     ];
 
     protected $processors = [
@@ -43,6 +45,12 @@ class CreateScriptCommand extends BaseCommand
                 'shortcut' => null,
                 'mode' => InputArgument::OPTIONAL,
                 'description' => 'Do You want to generate the JS in admin scope?'
+            ],
+            [
+                'name' => 'template',
+                'shortcut' => null,
+                'mode' => InputArgument::OPTIONAL,
+                'description' => 'Do You want to add mage-init for this script in a specific template?'
             ]
         ],
         'description' => 'Creates a new script',
@@ -66,6 +74,7 @@ class CreateScriptCommand extends BaseCommand
 
             $this->processRequirejs($input, $output);
             $this->processScriptFile($input, $output);
+            $this->processTemplate($input, $output);
         } catch (\Throwable $e) {
             $output->writeln('<error>' . $e->getMessage() . '</error>');
         }
@@ -102,6 +111,21 @@ class CreateScriptCommand extends BaseCommand
 
         if (!$filesystem->exists($app->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/view/' . $scope . '/requirejs-config.js')) {
             $this->processors[ProcessRequireJs::class]($input, $output);
+        }
+    }
+
+    protected function processTemplate(InputInterface $input, OutputInterface $output)
+    {
+        if ($input->getOption('template')) {
+            $this->jobs[AddMageInit::class]->handle(
+                $this->appContainer->get('app_dir') . '/app/code/' . $input->getOption('template'),
+                [
+                    'name' =>  $input->getArgument('script-name'),
+                    'bind' => '*'
+                ]
+            );
+
+            $output->writeln('<info>mage init was added</info>');
         }
     }
 }

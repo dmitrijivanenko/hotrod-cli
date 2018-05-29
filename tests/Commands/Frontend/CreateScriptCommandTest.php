@@ -57,18 +57,24 @@ class CreateScriptCommandTest extends TestCase
      */
     public function it_creates_a_new_script_file_and_adds_it_to_requirejs_config()
     {
+        /** @var Filesystem $filesystem */
         $filesystem = $this->appContainer->resolve(Filesystem::class);
 
         if (!$filesystem->exists($this->appContainer->get('test_dir') . '/Testing/Test')) {
             $filesystem->mkdir($this->appContainer->get('test_dir') . '/Testing/Test');
         }
 
+        $filesystem->dumpFile($this->appContainer->get('test_dir') . '/Testing/Test/view/frontend/templates/test.phtml', '');
+
         $tester = new CommandTester($this->command);
 
         $tester->execute([
             'namespace' => 'Testing_Test',
-            'script-name' => 'test-script'
+            'script-name' => 'test-script',
+            '--template' => 'Testing/Test/view/frontend/templates/test.phtml'
         ]);
+
+        $this->assertContains('mage init was added', $tester->getDisplay());
 
         $tester->execute([
             'namespace' => 'Testing_Test',
