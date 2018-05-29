@@ -118,7 +118,7 @@ class CreateScriptCommand extends BaseCommand
     {
         if ($input->getOption('template')) {
             $this->jobs[AddMageInit::class]->handle(
-                $this->appContainer->resolve('app_dir') . '/app/code/' . $input->getOption('template'),
+                $this->appContainer->get('app_dir') . '/app/code/' . $input->getOption('template'),
                 [
                     'name' =>  $input->getArgument('script-name'),
                     'bind' => '*'
