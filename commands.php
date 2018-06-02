@@ -20,6 +20,5 @@ return [
     'create:repository' => HotRodCli\Commands\Classes\CreateRepositoryCommand::class,
     'create:requirejs-config' => HotRodCli\Commands\Frontend\CreateRequireJsCommand::class,
     'create:js-script' => \HotRodCli\Commands\Frontend\CreateScriptCommand::class,
-    'create:js-widget' => \HotRodCli\Commands\Frontend\CreateJsWidgetCommand::class,
     'psr:fix' => HotRodCli\Commands\Common\PSRFixCommand::class,
 ];
