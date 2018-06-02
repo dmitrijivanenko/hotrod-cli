@@ -8,6 +8,10 @@ use HotRodCli\Jobs\Js\AddJs;
 use HotRodCli\Jobs\Js\AddMageInit;
 use HotRodCli\Jobs\Module\IsModuleExists;
 use HotRodCli\Processors\ProcessRequireJs;
+use HotRodCli\Processors\ScriptFile\SimpleScript;
+use HotRodCli\Processors\ScriptFile\WidgetScript;
+use HotRodCli\Processors\ScriptTemplate\SimpleTemplate;
+use HotRodCli\Processors\ScriptTemplate\WidgetTemplate;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -51,12 +55,28 @@ class CreateScriptCommand extends BaseCommand
                 'shortcut' => null,
                 'mode' => InputArgument::OPTIONAL,
                 'description' => 'Do You want to add mage-init for this script in a specific template?'
+            ],
+            [
+                'name' => 'type',
+                'shortcut' => null,
+                'mode' => InputArgument::OPTIONAL,
+                'description' => 'type of the script. Available types are: [simple], [widget], [component]'
             ]
         ],
         'description' => 'Creates a new script',
         'name' => 'create:js-script',
         'help' => 'creates a new Java Script in a given namespace',
         'info' => ''
+    ];
+
+    protected $scriptFileProcessors = [
+        'simple' => SimpleScript::class,
+        'widget' => WidgetScript::class
+    ];
+
+    protected $scriptTemplateProcessors = [
+        'simple' => SimpleTemplate::class,
+        'widget' => WidgetTemplate::class
     ];
 
     protected function configure()
@@ -82,24 +102,9 @@ class CreateScriptCommand extends BaseCommand
 
     protected function processScriptFile(InputInterface $input, OutputInterface $output)
     {
-        $namespace = explode('_', $input->getArgument('namespace'));
-        $app = $this->appContainer;
-        $scope = $input->getOption('admin') ? 'adminhtml' : 'frontend';
+        $type = $input->getOption('type') ?? 'simple';
 
-        $this->jobs[AddJs::class]->handle(
-            $app->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/view/' . $scope . '/requirejs-config.js',
-            $input->getArgument('script-name'),
-            $input->getArgument('namespace') . '/js/' . $input->getArgument('script-name')
-        );
-
-        $this->jobs[CopyFile::class]->handle(
-            $this->appContainer->get('resource_dir') . '/frontend/simple-js.js',
-            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/'
-                . $namespace[1] . '/view/' . $scope . '/web/js/' . $input->getArgument('script-name') . '.js'
-        );
-
-        $output->writeln('<info>' . '/app/code/' . $namespace[0] . '/'
-            . $namespace[1] . '/view/' . $scope . '/web/js/' . $input->getArgument('script-name') . '.js successfully generated</info>');
+        $this->appContainer->resolve($this->scriptFileProcessors[$type])($input, $output);
     }
 
     protected function processRequirejs(InputInterface $input, OutputInterface $output)
@@ -117,15 +122,9 @@ class CreateScriptCommand extends BaseCommand
     protected function processTemplate(InputInterface $input, OutputInterface $output)
     {
         if ($input->getOption('template')) {
-            $this->jobs[AddMageInit::class]->handle(
-                $this->appContainer->get('app_dir') . '/app/code/' . $input->getOption('template'),
-                [
-                    'name' =>  $input->getArgument('script-name'),
-                    'bind' => '*'
-                ]
-            );
+            $type = $input->getOption('type') ?? 'simple';
 
-            $output->writeln('<info>mage init was added</info>');
+            $this->appContainer->resolve($this->scriptTemplateProcessors[$type])($input, $output);
         }
     }
 }

@@ -82,5 +82,15 @@ class CreateScriptCommandTest extends TestCase
         ]);
 
         $this->assertContains('Such file already exists', $tester->getDisplay());
+
+        $tester->execute([
+            'namespace' => 'Testing_Test',
+            'script-name' => 'test-widget',
+            '--type' => 'widget',
+            '--template' => 'Testing/Test/view/frontend/templates/test.phtml'
+        ]);
+
+        $this->assertContains('Widget Script', $tester->getDisplay());
+        $this->assertContains('mage init was added', $tester->getDisplay());
     }
 }
