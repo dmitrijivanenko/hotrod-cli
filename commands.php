@@ -1,44 +1,25 @@
 <?php
 
-use HotRodCli\Commands\Common\PSRFixCommand;
-use HotRodCli\Commands\Module\CreateCommand;
-use HotRodCli\Commands\Classes\CreateHelperCommand;
-use HotRodCli\Commands\Classes\CreateControllerCommand;
-use HotRodCli\Commands\Classes\CreateBlockCommand;
-use HotRodCli\Commands\Xml\CreateRouteCommand;
-use HotRodCli\Commands\Xml\CreateLayoutCommand;
-use HotRodCli\Commands\Classes\CreateInstallSchemaCommand;
-use HotRodCli\Commands\Classes\CreateUpgradeSchemaCommand;
-use HotRodCli\Commands\Classes\CreateInstallDataCommand;
-use HotRodCli\Commands\Classes\CreateUpgradeDataCommand;
-use HotRodCli\Commands\Frontend\CreateTemplateCommand;
-use HotRodCli\Commands\Classes\CreateResourceModelCommand;
-use HotRodCli\Commands\Classes\CreateModelCommand;
-use HotRodCli\Commands\Classes\CreateCollectionCommand;
-use HotRodCli\Commands\Xml\CreatePreferenceCommand;
-use HotRodCli\Commands\Classes\CreateObserverCommand;
-use HotRodCli\Commands\Classes\CreateRepositoryCommand;
-use HotRodCli\Commands\Frontend\CreateRequireJsCommand;
-
 return [
-    'module:create' => CreateCommand::class,
-    'create:helper' => CreateHelperCommand::class,
-    'create:controller' => CreateControllerCommand::class,
-    'create:block' => CreateBlockCommand::class,
-    'create:route' => CreateRouteCommand::class,
-    'create:layout' => CreateLayoutCommand::class,
-    'create:install-schema' => CreateInstallSchemaCommand::class,
-    'create:upgrade-schema' => CreateUpgradeSchemaCommand::class,
-    'create:install-data' => CreateInstallDataCommand::class,
-    'create:upgrade-data' => CreateUpgradeDataCommand::class,
-    'create:template' => CreateTemplateCommand::class,
-    'create:resource-model' => CreateResourceModelCommand::class,
-    'create:model' => CreateModelCommand::class,
-    'create:collection' => CreateCollectionCommand::class,
-    'create:preference' => CreatePreferenceCommand::class,
-    'create:observer' => CreateObserverCommand::class,
-    'create:repository' => CreateRepositoryCommand::class,
-    'create:requirejs-config' => CreateRequireJsCommand::class,
+    'module:create' => HotRodCli\Commands\Module\CreateCommand::class,
+    'create:helper' => HotRodCli\Commands\Classes\CreateHelperCommand::class,
+    'create:controller' => HotRodCli\Commands\Classes\CreateControllerCommand::class,
+    'create:block' => HotRodCli\Commands\Classes\CreateBlockCommand::class,
+    'create:route' => HotRodCli\Commands\Xml\CreateRouteCommand::class,
+    'create:layout' => HotRodCli\Commands\Xml\CreateLayoutCommand::class,
+    'create:install-schema' => HotRodCli\Commands\Classes\CreateInstallSchemaCommand::class,
+    'create:upgrade-schema' => HotRodCli\Commands\Classes\CreateUpgradeSchemaCommand::class,
+    'create:install-data' => HotRodCli\Commands\Classes\CreateInstallDataCommand::class,
+    'create:upgrade-data' => HotRodCli\Commands\Classes\CreateUpgradeDataCommand::class,
+    'create:template' => HotRodCli\Commands\Frontend\CreateTemplateCommand::class,
+    'create:resource-model' => HotRodCli\Commands\Classes\CreateResourceModelCommand::class,
+    'create:model' => HotRodCli\Commands\Classes\CreateModelCommand::class,
+    'create:collection' => HotRodCli\Commands\Classes\CreateCollectionCommand::class,
+    'create:preference' => HotRodCli\Commands\Xml\CreatePreferenceCommand::class,
+    'create:observer' => HotRodCli\Commands\Classes\CreateObserverCommand::class,
+    'create:repository' => HotRodCli\Commands\Classes\CreateRepositoryCommand::class,
+    'create:requirejs-config' => HotRodCli\Commands\Frontend\CreateRequireJsCommand::class,
     'create:js-script' => \HotRodCli\Commands\Frontend\CreateScriptCommand::class,
-    'psr:fix' => PSRFixCommand::class,
+    'create:js-widget' => \HotRodCli\Commands\Frontend\CreateJsWidgetCommand::class,
+    'psr:fix' => HotRodCli\Commands\Common\PSRFixCommand::class,
 ];
