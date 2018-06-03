@@ -39,28 +39,32 @@ class CreateUpgradeSchemaCommand extends BaseCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->setJobs();
-        $namespace = explode('_', $input->getArgument('namespace'));
 
         try {
-            $this->jobs[IsModuleExists::class]->handle(
-                $input->getArgument('namespace'),
-                $output
-            );
-
-            $this->jobs[CopyFile::class]->handle(
-                $this->appContainer->get('resource_dir') . '/classes/UpgradeSchema.tphp',
-                $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Setup/UpgradeSchema.php'
-            );
-
-            $this->jobs[ReplaceText::class]->handle(
-                '{{namespace}}',
-                str_replace('_', '\\', $input->getArgument('namespace')),
-                $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Setup/'
-            );
-
-            $output->writeln('<info>Upgrade Schema file successfully created</info>');
+            $this->processUpgradeSchemaFile($input, $output);
         } catch (\Throwable $e) {
             $output->writeln('<error>' . $e->getMessage() . '</error>');
         }
+    }
+
+    protected function processUpgradeSchemaFile(InputInterface $input, OutputInterface $output)
+    {
+        $this->setJobs();
+        $namespace = explode('_', $input->getArgument('namespace'));
+
+        $this->jobs[IsModuleExists::class]->handle($input->getArgument('namespace'), $output);
+
+        $this->jobs[CopyFile::class]->handle(
+            $this->appContainer->get('resource_dir') . '/classes/UpgradeSchema.tphp',
+            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Setup/UpgradeSchema.php'
+        );
+
+        $this->jobs[ReplaceText::class]->handle(
+            '{{namespace}}',
+            str_replace('_', '\\', $input->getArgument('namespace')),
+            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Setup/'
+        );
+
+        $output->writeln('<info>Upgrade Schema file successfully created</info>');
     }
 }
