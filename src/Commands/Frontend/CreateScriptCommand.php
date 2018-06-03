@@ -60,7 +60,7 @@ class CreateScriptCommand extends BaseCommand
                 'name' => 'type',
                 'shortcut' => null,
                 'mode' => InputArgument::OPTIONAL,
-                'description' => 'type of the script. Available types are: [simple], [widget], [component]'
+                'description' => 'type of the script. Available types are: [simple], [widget]'
             ]
         ],
         'description' => 'Creates a new script',

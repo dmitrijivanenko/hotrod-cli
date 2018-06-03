@@ -33,28 +33,31 @@ class CreateUpgradeDataCommand extends BaseCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->setJobs();
-        $namespace = explode('_', $input->getArgument('namespace'));
 
         try {
-            $this->jobs[IsModuleExists::class]->handle(
-                $input->getArgument('namespace'),
-                $output
-            );
-
-            $this->jobs[CopyFile::class]->handle(
-                $this->appContainer->get('resource_dir') . '/classes/UpgradeData.tphp',
-                $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Setup/UpgradeData.php'
-            );
-
-            $this->jobs[ReplaceText::class]->handle(
-                '{{namespace}}',
-                str_replace('_', '\\', $input->getArgument('namespace')),
-                $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Setup/'
-            );
-
-            $output->writeln('<info>Upgrade Data file successfully created</info>');
+            $this->processUpgradeDataFile($input, $output);
         } catch (\Throwable $e) {
             $output->writeln('<error>' . $e->getMessage() . '</error>');
         }
+    }
+
+    protected function processUpgradeDataFile(InputInterface $input, OutputInterface $output)
+    {
+        $namespace = explode('_', $input->getArgument('namespace'));
+
+        $this->jobs[IsModuleExists::class]->handle($input->getArgument('namespace'), $output);
+
+        $this->jobs[CopyFile::class]->handle(
+            $this->appContainer->get('resource_dir') . '/classes/UpgradeData.tphp',
+            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Setup/UpgradeData.php'
+        );
+
+        $this->jobs[ReplaceText::class]->handle(
+            '{{namespace}}',
+            str_replace('_', '\\', $input->getArgument('namespace')),
+            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Setup/'
+        );
+
+        $output->writeln('<info>Upgrade Data file successfully created</info>');
     }
 }

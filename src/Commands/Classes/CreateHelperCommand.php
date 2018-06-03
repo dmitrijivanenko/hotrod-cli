@@ -38,35 +38,35 @@ class CreateHelperCommand extends BaseCommand
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $this->setJobs();
-        $namespace = explode('_', $input->getArgument('namespace'));
-        $name = $input->getArgument('name');
 
         try {
-            $this->jobs[IsModuleExists::class]->handle(
-                $input->getArgument('namespace'),
-                $output
-            );
-
-            $this->jobs[CopyFile::class]->handle(
-                $this->appContainer->get('resource_dir') . '/classes/Helper.tphp',
-                $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Helper/' . $name . '.php'
-            );
-
-            $this->jobs[ReplaceText::class]->handle(
-                '{{namespace}}',
-                str_replace('_', '\\', $input->getArgument('namespace')),
-                $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Helper/'
-            );
-
-            $this->jobs[ReplaceText::class]->handle(
-                '{{className}}',
-                $input->getArgument('name'),
-                $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Helper/'
-            );
-
-            $output->writeln('<info>Helper ' . $input->getArgument('name') . ' was successfully created</info>');
+            $this->processHelperFile($input, $output);
         } catch (\Throwable $e) {
             $output->writeln('<error>' . $e->getMessage() . '</error>');
         }
+    }
+
+    protected function processHelperFile(InputInterface $input, OutputInterface $output)
+    {
+        $this->setJobs();
+        $namespace = explode('_', $input->getArgument('namespace'));
+        $name = $input->getArgument('name');
+
+        $this->jobs[IsModuleExists::class]->handle(
+            $input->getArgument('namespace'),
+            $output
+        );
+
+        $this->jobs[CopyFile::class]->handle(
+            $this->appContainer->get('resource_dir') . '/classes/Helper.tphp',
+            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Helper/' . $name . '.php'
+        );
+
+        $this->replaceTextsSequence([
+            '{{namespace}}' => str_replace('_', '\\', $input->getArgument('namespace')),
+            '{{className}}' => $name,
+        ], $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Helper/');
+
+        $output->writeln('<info>Helper ' . $input->getArgument('name') . ' was successfully created</info>');
     }
 }

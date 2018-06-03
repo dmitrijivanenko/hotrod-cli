@@ -1,5 +1,4 @@
-<p align="center"><img width="400" src="https://dmitrijivanenko.github.io/hotrod-cli/img/hotrodcli.jpg"></p>
-
+<h1 align="center"> Hotrod cli </h1>
 <p align="center">
 <a href="https://scrutinizer-ci.com/g/dmitrijivanenko/hotrod-cli/?branch=master"><img src="https://scrutinizer-ci.com/g/dmitrijivanenko/hotrod-cli/badges/quality-score.png?b=master" alt="Scrutinizer Code Quality"></a>
 <a href="https://travis-ci.org/dmitrijivanenko/hotrod-cli"><img src="https://travis-ci.org/dmitrijivanenko/hotrod-cli.svg?branch=master" alt="Build Status"></a>
