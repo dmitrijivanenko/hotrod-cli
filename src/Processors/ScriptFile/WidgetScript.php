@@ -31,7 +31,7 @@ class WidgetScript
         );
 
         $this->container->resolve(CopyFile::class)->handle(
-            $app->get('resource_dir') . '/frontend/simple-js.js',
+            $app->get('resource_dir') . '/frontend/widget.js',
             $app->get('app_dir') . '/app/code/' . $namespace[0] . '/'
             . $namespace[1] . '/view/' . $scope . '/web/js/' . $input->getArgument('script-name') . '.js'
         );

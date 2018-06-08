@@ -51,23 +51,12 @@ class CreateObserverCommand extends BaseCommand
         $jobs = $this->jobs;
         $namespace = explode('_', $input->getArgument('namespace'));
         $app = $this->appContainer;
-        $jobs[CopyFile::class]->handle(
-            $app->get('resource_dir') . '/classes/Observer.tphp',
-            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] .
-            '/Observer/' . ucwords($input->getArgument('observer')) . '.php'
-        );
+        $jobs[CopyFile::class]->handle($app->get('resource_dir') . '/classes/Observer.tphp', $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Observer/' . ucwords($input->getArgument('observer')) . '.php');
 
-        $jobs[ReplaceText::class]->handle(
-            '{{namespace}}',
-            $namespace[0] . '\\' . $namespace[1]  . '\\',
-            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Observer/'
-        );
-
-        $jobs[ReplaceText::class]->handle(
-            '{{observer-name}}',
-            ucwords($input->getArgument('observer')),
-            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Observer/'
-        );
+        $this->replaceTextsSequence([
+            '{{namespace}}' => $namespace[0] . '\\' . $namespace[1]  . '\\',
+            '{{observer-name}}' => ucwords($input->getArgument('observer'))
+        ], $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Observer/');
 
         $output->writeln('<info>' . $namespace[0] . '\\' . $namespace[1] . '\\Observer\\' . ucwords(ucwords($input->getArgument('observer'))) . ' was successfully created</info>');
     }
