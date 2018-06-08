@@ -57,22 +57,9 @@ class BaseCommand extends Command
         $configs = $this->configs;
         $this->setName($configs['name'])->setDescription($configs['description'])->setHelp($configs['help']);
 
-        foreach ($configs['arguments'] as $argument) {
-            $this->addArgument(
-                $argument['name'],
-                $argument['mode'],
-                $argument['description']
-            );
-        }
+        $this->setConfigArguments($configs);
 
-        foreach ($configs['options'] as $option) {
-            $this->addOption(
-                $option['name'],
-                $option['shortcut'],
-                $option['mode'],
-                $option['description']
-            );
-        }
+        $this->setConfigOptions($configs);
 
         if (isset($configs['info'])) {
             $this->setInfo($configs['info']);
@@ -107,5 +94,28 @@ class BaseCommand extends Command
     public function getInfo()
     {
         return $this->info;
+    }
+
+    protected function setConfigArguments($configs): void
+    {
+        foreach ($configs['arguments'] as $argument) {
+            $this->addArgument(
+                $argument['name'],
+                $argument['mode'],
+                $argument['description']
+            );
+        }
+    }
+
+    protected function setConfigOptions($configs): void
+    {
+        foreach ($configs['options'] as $option) {
+            $this->addOption(
+                $option['name'],
+                $option['shortcut'],
+                $option['mode'],
+                $option['description']
+            );
+        }
     }
 }
