@@ -19,29 +19,35 @@ class AddRoute
             throw new \Exception('no such file');
         }
 
+        $this->addRoute($xmlFile, $addition);
+    }
+
+    protected function addRoute(string $xmlFile, array $addition)
+    {
         try {
-            $content = file_get_contents($xmlFile);
-            $xmlArray = new \SimpleXMLElement($content);
-
-            if ($this->isRouteExists($xmlArray, $addition['frontName'])) {
-                throw new \Exception('route already exists');
-            }
-
-            $newRoute = $xmlArray->router->addChild('route');
-            $newRoute->addAttribute('frontName', $addition['frontName']);
-            $newRoute->addAttribute('id', $addition['id']);
-            $routeModule = $newRoute->addChild('module');
-            $routeModule->addAttribute('name', $addition['moduleName']);
-
-            $dom = new \DOMDocument("1.0");
-            $dom->preserveWhiteSpace = false;
-            $dom->formatOutput = true;
-            $dom->loadXML($xmlArray->asXML());
-            $xmlArray = new \SimpleXMLElement($dom->saveXML());
-            $xmlArray->asXML($xmlFile);
+            $this->processRoute($xmlFile, $addition);
         } catch (\Throwable $e) {
             throw new \Exception($e->getMessage());
         }
+    }
+
+    protected function processRoute(string $xmlFile, array $addition)
+    {
+        $content = file_get_contents($xmlFile);
+        $xmlArray = new \SimpleXMLElement($content);
+
+        if ($this->isRouteExists($xmlArray, $addition['frontName'])) {
+            throw new \Exception('route already exists');
+        }
+
+        $this->setRoute($addition, $xmlArray);
+
+        $dom = new \DOMDocument("1.0");
+        $dom->preserveWhiteSpace = false;
+        $dom->formatOutput = true;
+        $dom->loadXML($xmlArray->asXML());
+        $xmlArray = new \SimpleXMLElement($dom->saveXML());
+        $xmlArray->asXML($xmlFile);
     }
 
     protected function isRouteExists($xml, $frontName)
@@ -55,5 +61,14 @@ class AddRoute
         }
 
         return false;
+    }
+
+    protected function setRoute(array $addition, $xmlArray)
+    {
+        $newRoute = $xmlArray->router->addChild('route');
+        $newRoute->addAttribute('frontName', $addition['frontName']);
+        $newRoute->addAttribute('id', $addition['id']);
+        $routeModule = $newRoute->addChild('module');
+        $routeModule->addAttribute('name', $addition['moduleName']);
     }
 }
