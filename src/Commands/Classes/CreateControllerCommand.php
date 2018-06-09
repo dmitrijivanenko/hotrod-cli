@@ -118,7 +118,7 @@ class CreateControllerCommand extends BaseCommand
 
         $this->replaceTextsSequence(
             [
-                '{{controller_namespace}}' => $namespace[0] . '\\' . $namespace[1] . '\\Controller\\' . $this->getScopeDir($input) . ucwords($controller[1]),
+                '{{controller_namespace}}' => $namespace[0] . '\\' . $namespace[1] . '\\Controller\\' . $this->getScopeNamespace($input) . ucwords($controller[1]),
                 '{{className}}' => ucwords($controller[2]),
                 '{{route}}' => $input->getArgument('route')
             ],
