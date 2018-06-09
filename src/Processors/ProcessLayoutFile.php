@@ -20,21 +20,13 @@ class ProcessLayoutFile
     public function __invoke(InputInterface $input, OutputInterface $output)
     {
         if (!$input->getOption('no-layout')) {
-            $namespace = explode('_', $input->getArgument('namespace'));
-            $controller = explode('/', $input->getArgument('route'));
             $app = $this->appContainer;
 
             /** @var Application $application */
             $application = $app->resolve(Application::class);
             $command = $application->find('create:layout');
 
-            $inputs = array(
-                'namespace' => $input->getArgument('namespace'),
-                'layout-name' => strtolower($controller[0]) . '_' . strtolower($controller[1]) . '_' . strtolower($controller[2]),
-                'layout-file-name' => strtolower($controller[0]) . '_' . strtolower($controller[1]) . '_' . strtolower($controller[2]),
-                'block-class' => $namespace[0] . '\\' . $namespace[1] . '\\Block\\' . ucwords($controller[1]),
-                'template' => $controller[2]
-            );
+            $inputs = $this->constructInputs($input);
 
             if ($input->getOption('admin')) {
                 $inputs['--admin'] = true;
@@ -43,5 +35,19 @@ class ProcessLayoutFile
             $greetInput = new ArrayInput($inputs);
             $command->run($greetInput, $output);
         }
+    }
+
+    protected function constructInputs(InputInterface $input)
+    {
+        $namespace = explode('_', $input->getArgument('namespace'));
+        $controller = explode('/', $input->getArgument('route'));
+
+        return [
+            'namespace' => $input->getArgument('namespace'),
+            'layout-name' => strtolower($controller[0]) . '_' . strtolower($controller[1]) . '_' . strtolower($controller[2]),
+            'layout-file-name' => strtolower($controller[0]) . '_' . strtolower($controller[1]) . '_' . strtolower($controller[2]),
+            'block-class' => $namespace[0] . '\\' . $namespace[1] . '\\Block\\' . ucwords($controller[1]),
+            'template' => $controller[2]
+        ];
     }
 }
