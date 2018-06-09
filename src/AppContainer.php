@@ -2,8 +2,6 @@
 
 namespace HotRodCli;
 
-use Symfony\Component\Console\Command\Command;
-
 class AppContainer
 {
     /**
@@ -28,22 +26,34 @@ class AppContainer
         $constructor = $reflector->getConstructor();
 
         if (is_null($constructor)) {
-            $result = new $class;
-            $this->bind($class, $result);
-
-            return $result;
+            return $this->resolveWithoutConstructor($class);
         }
 
         if (!is_null($args)) {
-            $result = $reflector->newInstance($args);
-            $this->bind($class, $result);
-            return $result;
+            return $this->resolveWithSetParams($class, $args);
         }
 
         $parameters = $constructor->getParameters();
         $dependencies = $this->getDependencies($parameters);
 
         $result = $reflector->newInstanceArgs($dependencies);
+        $this->bind($class, $result);
+
+        return $result;
+    }
+
+    protected function resolveWithoutConstructor(string $class)
+    {
+        $result = new $class;
+        $this->bind($class, $result);
+
+        return $result;
+    }
+
+    protected function resolveWithSetParams(string $class, $args)
+    {
+        $reflector = new \ReflectionClass($class);
+        $result = $reflector->newInstance($args);
         $this->bind($class, $result);
 
         return $result;
