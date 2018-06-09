@@ -107,32 +107,35 @@ class CreateControllerCommand extends BaseCommand
 
     protected function processControllerFile(InputInterface $input, OutputInterface $output): void
     {
-        $jobs = $this->jobs;
         $namespace = explode('_', $input->getArgument('namespace'));
         $controller = explode('/', $input->getArgument('route'));
-        $scopeDir = $input->getOption('admin') ? 'Adminhtml/' : '';
-        $scopeNamespace = $input->getOption('admin') ? 'Adminhtml\\' : '';
         $app = $this->appContainer;
 
-        $jobs[CopyFile::class]->handle(
-            $app->get('resource_dir') . '/classes/Controller.tphp',
-            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] .
-            '/Controller/' . $scopeDir . ucwords($controller[1]) . '/' . ucwords($controller[2]) . '.php'
+        $this->jobs[CopyFile::class]->handle($app->get('resource_dir') . '/classes/Controller.tphp',
+            $app->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] .
+            '/Controller/' . $this->getScopeDir($input) . ucwords($controller[1]) . '/' . ucwords($controller[2]) . '.php'
         );
 
         $this->replaceTextsSequence(
             [
-                '{{controller_namespace}}' => $namespace[0] . '\\' . $namespace[1] . '\\Controller\\' . $scopeNamespace . ucwords($controller[1]),
+                '{{controller_namespace}}' => $namespace[0] . '\\' . $namespace[1] . '\\Controller\\' . $this->getScopeNamespace($input) . ucwords($controller[1]),
                 '{{className}}' => ucwords($controller[2]),
                 '{{route}}' => $input->getArgument('route')
             ],
-            $this->appContainer->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Controller/'
+            $app->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/Controller/'
         );
 
-        $output->writeln('<info>'
-            . $namespace[0] . '\\'
-            . $namespace[1] . '\\Controller\\'
-            . ucwords($controller[1]) . '\\'
-            . ucwords($controller[2]) . ' was successfully created</info>');
+        $output->writeln('<info>' . $namespace[0] . '\\' . $namespace[1] . '\\Controller\\'
+            . ucwords($controller[1]) . '\\' . ucwords($controller[2]) . ' was successfully created</info>');
+    }
+
+    protected function getScopeDir(InputInterface $input)
+    {
+        return $input->getOption('admin') ? 'Adminhtml/' : '';
+    }
+
+    protected function getScopeNamespace(InputInterface $input)
+    {
+        return $input->getOption('admin') ? 'Adminhtml\\' : '';
     }
 }
