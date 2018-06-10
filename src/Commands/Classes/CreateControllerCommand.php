@@ -111,7 +111,8 @@ class CreateControllerCommand extends BaseCommand
         $controller = explode('/', $input->getArgument('route'));
         $app = $this->appContainer;
 
-        $this->jobs[CopyFile::class]->handle($app->get('resource_dir') . '/classes/Controller.tphp',
+        $this->jobs[CopyFile::class]->handle(
+            $app->get('resource_dir') . '/classes/Controller.tphp',
             $app->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] .
             '/Controller/' . $this->getScopeDir($input) . ucwords($controller[1]) . '/' . ucwords($controller[2]) . '.php'
         );
