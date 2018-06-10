@@ -2,6 +2,12 @@
 
 namespace HotRodCli;
 
+use HotRodCli\Checkers\BaseStatus;
+use HotRodCli\Checkers\Container\HasArguments;
+use HotRodCli\Checkers\Container\HasConstructor;
+use HotRodCli\Checkers\Container\IsAlreadyExists;
+use HotRodCli\Checkers\Container\IsInstantiable;
+
 class AppContainer
 {
     /**
@@ -11,35 +17,63 @@ class AppContainer
      */
     protected $registry = [];
 
+    protected $checkers = [
+        IsAlreadyExists::class => 'isAlreadyExists',
+        IsInstantiable::class => 'canNotInstantiate',
+        HasConstructor::class => 'hasConstructor',
+        HasArguments::class => 'hasArguments'
+    ];
+
     public function resolve(string $class, $args = null)
     {
-        if (array_key_exists($class, $this->registry)) {
-            return $this->registry[$class];
+        $status = $this->runCheckers($class, $args);
+
+        if (!$status->getStatus()) {
+            return $this->{$this->checkers[$status->getFailedWith()]}($class, $args);
         }
 
         $reflector = new \ReflectionClass($class);
-
-        if (!$reflector->isInstantiable()) {
-            throw new \Exception("[$class] is not instantiable");
-        }
-
         $constructor = $reflector->getConstructor();
-
-        if (is_null($constructor)) {
-            return $this->resolveWithoutConstructor($class);
-        }
-
-        if (!is_null($args)) {
-            return $this->resolveWithSetParams($class, $args);
-        }
-
         $parameters = $constructor->getParameters();
         $dependencies = $this->getDependencies($parameters);
-
         $result = $reflector->newInstanceArgs($dependencies);
         $this->bind($class, $result);
 
         return $result;
+    }
+
+    protected function runCheckers($class, $args)
+    {
+        $exists = new IsAlreadyExists($this->registry, $class);
+        $isInstantiable = new IsInstantiable($class);
+        $hasConstructor = new HasConstructor($class);
+        $hasArguments = new HasArguments($args);
+
+        $exists->succeedWIth($isInstantiable);
+        $isInstantiable->succeedWIth($hasConstructor);
+        $hasConstructor->succeedWIth($hasArguments);
+
+        return $exists->check(new BaseStatus());
+    }
+
+    protected function hasArguments($class, $args)
+    {
+        return $this->resolveWithSetParams($class, $args);
+    }
+
+    protected function hasConstructor($class)
+    {
+        return $this->resolveWithoutConstructor($class);
+    }
+
+    protected function isAlreadyExists($class)
+    {
+        return $this->registry[$class];
+    }
+
+    protected function canNotInstantiate($class)
+    {
+        throw new \Exception("[$class] is not instantiable");
     }
 
     protected function resolveWithoutConstructor(string $class)

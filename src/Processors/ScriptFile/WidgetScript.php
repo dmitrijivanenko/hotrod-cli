@@ -30,12 +30,15 @@ class WidgetScript
             $input->getArgument('namespace') . '/js/' . $input->getArgument('script-name')
         );
 
-        $app->resolve(CopyFile::class)->handle($app->get('resource_dir') . '/frontend/widget.js',
+        $app->resolve(CopyFile::class)->handle(
+            $app->get('resource_dir') . '/frontend/widget.js',
             $app->get('app_dir') . '/app/code/' . $namespace[0] . '/'
             . $namespace[1] . '/view/' . $scope . '/web/js/' . $input->getArgument('script-name') . '.js'
         );
 
-        $app->resolve(ReplaceText::class)->handle('{{widget-name}}', $input->getArgument('script-name'),
+        $app->resolve(ReplaceText::class)->handle(
+            '{{widget-name}}',
+            $input->getArgument('script-name'),
             $app->get('app_dir') . '/app/code/' . $namespace[0] . '/' . $namespace[1] . '/view/'
         );
 
