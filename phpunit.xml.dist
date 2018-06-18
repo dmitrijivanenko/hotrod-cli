@@ -10,7 +10,7 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="Submarine tests suite">
+        <testsuite name="Hotrod cli tests suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
