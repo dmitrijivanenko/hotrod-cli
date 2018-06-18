@@ -17,6 +17,8 @@
   * [Repository](repository.md)
   * [Model](model.md)
   * [Observer](observer.md)
+  * [RequireJS Configuration](requirejs.md)
+  * [JS Script File](js-script.md)
 
 * Common Commands
 
