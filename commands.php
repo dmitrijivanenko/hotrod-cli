@@ -19,6 +19,5 @@ return [
     'create:observer' => HotRodCli\Commands\Classes\CreateObserverCommand::class,
     'create:repository' => HotRodCli\Commands\Classes\CreateRepositoryCommand::class,
     'create:requirejs-config' => HotRodCli\Commands\Frontend\CreateRequireJsCommand::class,
-    'create:js-script' => \HotRodCli\Commands\Frontend\CreateScriptCommand::class,
-    'psr:fix' => HotRodCli\Commands\Common\PSRFixCommand::class,
+    'create:js-script' => \HotRodCli\Commands\Frontend\CreateScriptCommand::class
 ];
