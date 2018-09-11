@@ -35,7 +35,7 @@ class AddJs
         $content = file_get_contents($file);
         preg_match('/=\s?((?:\r|\n|.)+(}))/', $content, $matches);
         $array = json_decode($matches[1], true);
-        $array['*'][$data['name']] = $data['js'];
+        $array['map']['*'][$data['name']] = $data['js'];
         $content = preg_replace('/=\s?((?:\r|\n|.)+(}))/', '= ' . json_encode($array, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES), $content);
         file_put_contents($file, $content);
     }
